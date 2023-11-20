@@ -1,0 +1,80 @@
+.authContainer {
+  display: flex;
+  background: #eaeae1;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.authContentContainer {
+  width: 55%;
+  margin-top: 80px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.authContentContainer > div {
+  width: 100%;
+  margin: auto;
+  max-width: 480px;
+}
+
+.authContentIcon {
+  height: auto;
+  max-width: 250px;
+  padding-bottom: 20px;
+}
+
+.authChildren {
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.authImg {
+  width: 45%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+@media (max-width: 1366px) {
+  .authContentContainer {
+    width: 60%;
+    margin-top: 40px;
+  }
+  .authImg {
+    width: 40%;
+  }
+  .authContentIcon {
+    height: auto;
+    max-width: 200px;
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .authContainer {
+    flex-direction: column;
+  }
+
+  .authContentContainer {
+    flex: 0 0 100%;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .authContentContainer > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .authContentIcon {
+    margin-bottom: 0px;
+    max-width: 190px;
+  }
+
+  .authImg {
+    display: none;
+  }
+  .authContentIcon {
+    padding-bottom: 20px;
+  }
+}

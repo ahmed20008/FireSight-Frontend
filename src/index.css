@@ -1,0 +1,53 @@
+@font-face {
+  font-family: Almarena-Bold;
+  src: url(./assets/font_family/Almarena/Almarena/Almarena-Bold.otf);
+}
+@font-face {
+  font-family: Almarena-Regular;
+  src: url(./assets/font_family/Almarena/Almarena/Almarena-Regular.otf);
+}
+@font-face {
+  font-family: FTR;
+  src: url(./assets/font_family/35FTR/35FTR/ILOTT-TYPE\ -\ 35-FTR-Regular.otf);
+}
+@font-face {
+  font-family: Helvetica-Neue;
+  src: url(./assets/font_family/Helvetica-Neue-Font/Helvetica-Neue-Font/Helvetica\ Neue\ Medium\ Extended/Helvetica\ Neue\ Medium\ Extended.otf);
+}
+@font-face {
+  font-family: Helvetica-Neue-Light;
+  src: url(./assets/font_family/HelveticaNeueLight.otf);
+}
+@font-face {
+  font-family: Helvetica-Neue-Medium;
+  src: url(./assets/font_family/HelveticaNeueMedium.otf);
+}
+@font-face {
+  font-family: Helvetica-Neue-Bold;
+  src: url(./assets/font_family/HelveticaNeueBold.otf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-track {
+  background: none;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #535353;
+}

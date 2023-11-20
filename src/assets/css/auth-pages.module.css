@@ -1,0 +1,90 @@
+.authContentHeading {
+  padding-bottom: 20px;
+}
+
+.authContentHeading h2 {
+  color: #1d1c1c;
+  font-family: Almarena-Bold;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 22px;
+}
+
+.authContentHeading p {
+  color: #1d1c1c;
+  font-family: FTR;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.authContentForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.authContentForm input {
+  width: 100%;
+  padding: 15px 20px;
+  align-items: center;
+  margin-bottom: 25px;
+  border: 1px solid transparent;
+  border-radius: 81px;
+  background: #fff;
+  font-family: Almarena-Regular;
+  font-size: 16px;
+  min-height: 57px;
+}
+
+.authContentForm input::placeholder {
+  color: #1d1c1c;
+  font-family: Almarena-Regular;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.authSubmitbutton button {
+  cursor: pointer;
+  border: none;
+  display: flex;
+  width: 100%;
+  padding: 21px 20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 81px;
+  background: #000;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.loginForgotPassword {
+  text-align: center;
+  margin-top: 30px;
+}
+.loginForgotPassword a {
+  text-decoration: none;
+  font-family: FTR;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  color: #1d1c1c;
+}
+
+@media (max-width: 767px) {
+  .authContentHeading h2 {
+    font-size: 32px;
+    text-align: center;
+  }
+  .authContentHeading p {
+    text-align: center;
+  }
+}

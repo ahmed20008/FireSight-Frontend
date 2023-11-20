@@ -1,0 +1,1 @@
+Utilizing computer vision technology, this project combines smoke detection and fire prevention. It features a user-friendly dashboard where users can access live feeds from their cameras and receive real-time fire alerts.

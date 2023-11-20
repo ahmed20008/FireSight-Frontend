@@ -1,0 +1,103 @@
+.buttonBlackRounded {
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  background-color: #1d1c1c;
+  padding: 10px 20px;
+  width: 100%;
+  color: white;
+  border-radius: 80px;
+  text-decoration: none;
+  text-align: center;
+  font-family: Helvetica-Neue-medium;
+  /* font-weight: 700; */
+}
+
+.buttonBlackRoundedDisabled {
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  background-color: #a4a49e;
+  padding: 10px 20px;
+  width: 100%;
+  color: white;
+  border-radius: 80px;
+  text-decoration: none;
+  text-align: center;
+  font-family: Helvetica-Neue-medium;
+  /* font-weight: 700; */
+}
+
+.buttonPinkRounded {
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  background-color: #f6a4a4;
+  padding: 10px 20px;
+  width: 100%;
+  color: white;
+  border-radius: 80px;
+  text-decoration: none;
+  text-align: center;
+  font-family: Helvetica-Neue-medium;
+  /* font-weight: 700; */
+}
+.buttonGreenRounded {
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  background-color: #349b04;
+  padding: 10px 20px;
+  width: 100%;
+  color: white;
+  border-radius: 80px;
+  text-decoration: none;
+  text-align: center;
+  font-family: Helvetica-Neue-medium;
+  /* font-weight: 700; */
+}
+.buttonRedRounded {
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  background-color: #cd0000;
+  padding: 10px 20px;
+  width: 100%;
+  color: white;
+  border-radius: 80px;
+  text-decoration: none;
+  text-align: center;
+  font-family: Helvetica-Neue-medium;
+  /* font-weight: 700; */
+}
+.buttonWhiteRounded {
+  height: 42px;
+  font-size: 14px;
+  border: none;
+  background-color: white;
+  padding: 10px 20px;
+  width: 100%;
+  color: #a2a2a2;
+  border-radius: 80px;
+  border: 1px solid #a2a2a2;
+  text-decoration: none;
+  text-align: center;
+  font-family: Helvetica-Neue-medium;
+  /* font-weight: 700; */
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .buttonBlackRounded:hover {
+    background-color: #4d4b4b;
+  }
+  .buttonWhiteRounded:hover {
+    color: #5a5a5a;
+    border: 1px solid #686868;
+  }
+  .buttonGreenRounded:hover {
+    background-color: #43ad12;
+  }
+  .buttonRedRounded:hover {
+    background-color: #df1f1f;
+  }
+}

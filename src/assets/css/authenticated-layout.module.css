@@ -1,0 +1,40 @@
+.layoutPinned {
+  margin-left: 209px;
+  transition: margin 0.3s;
+}
+
+.layoutUnpinned {
+  margin-left: 75px;
+  transition: margin 0.3s;
+}
+
+.mainContentContainer {
+  min-height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
+  background: var(--Cream, #eaeae1);
+  padding: 0px 40px 40px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1199px) {
+  .layoutPinned {
+    margin-left: 0px;
+  }
+
+  .layoutUnpinned {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  .mainContent {
+    padding: 0px 20px 20px 20px;
+  }
+}

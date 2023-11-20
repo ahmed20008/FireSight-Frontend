@@ -1,0 +1,135 @@
+.sidebarScrollBar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebarScrollBar::-webkit-scrollbar-track {
+  background: none;
+}
+
+.sidebarScrollBar::-webkit-scrollbar-thumb {
+  background: none;
+  border-radius: 10px;
+}
+
+.sidebarScrollBar:hover::-webkit-scrollbar-thumb {
+  background: #a8a8a8;
+}
+
+.sidebarScrollBar::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.sidebarContent {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.sidebarContainer {
+  background: #416367;
+  padding: 10px;
+  height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+.pinContainer {
+  width: 209px;
+  transition: width 0.3s;
+}
+
+.unpinContainer {
+  width: 75px;
+  transition: width 0.3s;
+}
+
+.listContainer {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.listItem {
+  overflow-x: hidden;
+  border-radius: 8px;
+  /* padding: 10px 15px; */
+}
+
+.listItem:hover,
+.sidebarActive {
+  background-color: #29929f;
+}
+
+.listItemLogo a {
+  text-decoration: none;
+}
+
+.listItemLogo a>div {
+  padding-left: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hideSidebarImage {
+  width: 50px;
+  overflow: hidden;
+}
+
+.listItem a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 45px;
+  width: 190px;
+  overflow-x: hidden;
+  gap: 10px;
+}
+
+.listItem a>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+}
+
+.listItem a>span {
+  flex: 1;
+}
+
+.hideSidebarSpan {
+  opacity: 0;
+}
+
+.showSidebarSpan {
+  opacity: 1;
+}
+
+@media (max-width: 1199px) {
+  .sidebarContentPinned {
+    width: 100vw;
+    height: 100vh;
+    cursor: pointer;
+    background-color: rgba(218, 218, 218, 0.3);
+  }
+
+  .sidebarContentUnpinned {
+    width: 0;
+    height: 0;
+  }
+
+  .pinContainer {
+    width: 209px;
+    transform: translate(0);
+    transition: transform 0.3s;
+  }
+
+  .unpinContainer {
+    width: 209px;
+    transform: translate(-209px);
+    transition: transform 0.3s;
+  }
+}
