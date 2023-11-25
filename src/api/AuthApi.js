@@ -6,10 +6,14 @@ const LOGIN_PAYLOAD = {
 };
 
 const SIGNUp_PAYLOAD = {
-  username: null,
+  name: null,
   email: null,
   password: null,
-}
+};
+
+const UPDATE_PASSWORD_PAYLOAD = {
+  password: null,
+};
 
 export async function signIn(payload = LOGIN_PAYLOAD) {
   return await axios.post('/login', payload)
@@ -33,6 +37,16 @@ export async function signUp(payload = SIGNUp_PAYLOAD) {
 
 export async function forgetPassword(payload = { email: null }) {
   return await axios.post('/forget-password', payload)
+    .then(response => {
+      return response.data
+
+    }).catch(error => {
+      throw error.response.data
+    })
+};
+
+export async function updatePassword(payload = UPDATE_PASSWORD_PAYLOAD) {
+  return await axios.post(`/update-password/:_id/:token`, payload)
     .then(response => {
       return response.data
 

@@ -3,12 +3,15 @@ import authLayout from "../../layout/AuthLayout";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
 import { toastrOnTopCenter } from "../../utils/toastr";
 import { useParams } from "react-router-dom";
+import { updatePassword } from "../../api/AuthApi";
 
 const NewPassword = () => {
   const { id, resetToken } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const UpdatePasswordData = {
+  const [processing, setProcessing] = useState(false);
+
+  const updatePasswordData = {
     password: password,
     id: id,
     token: resetToken,
@@ -16,16 +19,27 @@ const NewPassword = () => {
 
   const resetPassword = (event) => {
     event.preventDefault();
+    setProcessing(true);
+
     if (password !== confirmPassword) {
       toastrOnTopCenter("The passwords you entered do not match. Please make sure both passwords are the same.", "error");
+      setProcessing(false);
       return;
     }
     else {
-      // API call here 
+      updatePassword({ ...updatePasswordData })
+        .then((response) => {
+          toastrOnTopCenter(response.message, "success");
+        })
+        .catch((errors) => {
+          toastrOnTopCenter(errors.message, "error");
+        })
+        .finally(() => {
+          setProcessing(false);
+        });
     }
   };
-  console.log("User ID:", id);
-  console.log("Reset Token:", resetToken);
+
   return (
     <>
       <div className={styles.authContentHeading}>
@@ -50,7 +64,10 @@ const NewPassword = () => {
           />
         </div>
         <div className={styles.authSubmitbutton}>
-          <button type="submit">Go to Login</button>
+          <button type="submit">
+            {processing && <i className="fa fa-spinner fa-spin"></i>}
+            {!processing && "Go to Login"}
+          </button>
         </div>
       </form>
     </>

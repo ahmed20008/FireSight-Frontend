@@ -1,4 +1,4 @@
-import {lazy} from "react";
+import { lazy } from "react";
 
 const Login = lazy(() => import("../modules/auth/Login"));
 const Register = lazy(() => import("../modules/auth/Register"));
@@ -12,7 +12,6 @@ const AddCamera = lazy(() => import("../modules/add-camera/AddCamera"));
 const Profile = lazy(() => import("../modules/profile/Profile"));
 const AllUsers = lazy(() => import("../modules/all-users/AllUsers"));
 const UpgradeToPro = lazy(() => import("../modules/upgrade/UpgradeToPro"));
-const Settings = lazy(() => import("../modules/settings/Settings"));
 
 export const routes = [
   {
@@ -54,9 +53,5 @@ export const routes = [
   {
     path: "/upgrade-to-pro",
     element: <UpgradeToPro />,
-  },
-  {
-    path: "/settings",
-    element: <Settings />,
   },
 ];

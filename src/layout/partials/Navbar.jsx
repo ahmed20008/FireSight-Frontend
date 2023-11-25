@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import MyImage from "../../assets/images/team-member.png";
 import styles from "../../assets/css/navbar.module.css?v1.0";
 
 const Navbar = ({sidebarPinned, updateSidebarState}) => {
@@ -17,7 +16,7 @@ const Navbar = ({sidebarPinned, updateSidebarState}) => {
       </div>
       <span className={styles.navbarName}>John Doe</span>
       <div className="dropdown">
-        <img src={MyImage} className={`rounded-circle ${styles.navbarAvatar}`} alt="Avatar" data-bs-toggle="dropdown" aria-expanded="false" />
+        <img src="#" className={`rounded-circle ${styles.navbarAvatar}`} alt="Avatar" data-bs-toggle="dropdown" aria-expanded="false" />
         <ul className="dropdown-menu">
           <li>
             <Link className="dropdown-item" href="/settings">

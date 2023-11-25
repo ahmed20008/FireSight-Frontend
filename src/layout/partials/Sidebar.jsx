@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconSettings, IconDeviceCctv, IconCirclePlus, IconLogout } from '@tabler/icons-react';
+import { IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconDeviceCctv, IconCirclePlus, IconLogout } from '@tabler/icons-react';
 import { authImages } from "../../utils/staticImages";
 import styles from "../../assets/css/sidebar.module.css?v1.0";
 
@@ -92,14 +92,6 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
               </Link>
             </li>
             {sidebarPinned && <p className="py-2 mb-0 text-white">OTHERS</p>}
-            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "settings" ? styles.sidebarActive : ""}`}>
-              <Link to="/settings">
-                <div>
-                  <IconSettings />
-                </div>
-                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Settings</span>
-              </Link>
-            </li>
             <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "logout" ? styles.sidebarActive : ""}`}>
               <Link to="#">
                 <div>

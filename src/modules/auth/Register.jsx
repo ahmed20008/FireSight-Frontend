@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import authLayout from "../../layout/AuthLayout";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
 import { toastrOnTopCenter } from '../../utils/toastr';
 import { signUp } from '../../api/AuthApi';
 
 const Regsiter = () => {
-  const navigate = useNavigate();
   const initialValue = {
-    username: "",
+    name: "",
     email: "",
     password: "",
   };
@@ -18,14 +17,13 @@ const Regsiter = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    setProcessing(true);
 
     signUp({ ...signupData })
       .then((response) => {
-        console.log(response)
         toastrOnTopCenter(response.message, "success");
       })
       .catch((errors) => {
-        // setErrorBag(errors);
         toastrOnTopCenter(errors.message, "error")
       })
       .finally(() => {
@@ -41,12 +39,15 @@ const Regsiter = () => {
       </div>
       <form onSubmit={handleRegister}>
         <div className={styles.authContentForm}>
-          <input type="text" placeholder="Username" value={signupData.username} onChange={(e) => setSignupData({ ...signupData, username: e.target.value })} required />
+          <input type="text" placeholder="Name" value={signupData.name} onChange={(e) => setSignupData({ ...signupData, name: e.target.value })} required />
           <input type="email" placeholder="Email" value={signupData.email} onChange={(e) => setSignupData({ ...signupData, email: e.target.value })} required />
           <input type="password" placeholder="Password" value={signupData.password} onChange={(e) => setSignupData({ ...signupData, password: e.target.value })} required />
         </div>
         <div className={styles.authSubmitbutton}>
-          <button type="submit">Sign Up</button>
+          <button type="submit">
+            {processing && <i className="fa fa-spinner fa-spin"></i>}
+            {!processing && "Sign Up"}
+          </button>
         </div>
       </form>
       <p className={styles.loginForgotPassword}>

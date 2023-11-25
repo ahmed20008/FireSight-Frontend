@@ -14,13 +14,13 @@ const ResetPassword = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setProcessing(true);
 
     forgetPassword({ ...forgotPassword })
       .then((response) => {
         toastrOnTopCenter(response.message, "success");
       })
       .catch((errors) => {
-        // setErrorBag(errors);
         toastrOnTopCenter(errors.message, "error");
       })
       .finally(() => {
@@ -38,7 +38,10 @@ const ResetPassword = () => {
           <input type="email" placeholder="Email" value={forgotPassword.email} onChange={(e) => seForgotPassword({ ...forgotPassword, email: e.target.value })} required />
         </div>
         <div className={styles.authSubmitbutton}>
-          <button type="submit">Send Verification Link</button>
+          <button type="submit">
+            {processing && <i className="fa fa-spinner fa-spin"></i>}
+            {!processing && "Send Verification Link"}
+          </button>
         </div>
       </form>
       <p className={styles.loginForgotPassword}>

@@ -1,0 +1,20 @@
+.camerasCard {
+  width: 300px;
+  border: 0px;
+  box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.66);
+  -webkit-box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.66);
+  -moz-box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.66);
+  padding: 20px 20px;
+}
+
+.camerasCard h2 {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px 0px;
+  margin: 0;
+}
+
+.camerasCard p {
+  margin-bottom: 5px;
+}

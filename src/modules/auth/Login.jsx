@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
 import { signIn } from "../../api/AuthApi";
 // import { useSignIn } from "react-auth-kit";
+import Cookies from 'js-cookie';
 import { toastrOnTopCenter } from "../../utils/toastr";
 
 const Login = () => {
@@ -19,26 +20,16 @@ const Login = () => {
 
   const login = (e) => {
     e.preventDefault();
+    setProcessing(true);
 
     signIn({ ...credential })
       .then((response) => {
-        console.log(response)
+        // const { auth_token, exp } = response.data;
+        // Cookies.set('auth_token', auth_token, { expires: new Date(exp * 1000), path: '/', domain: 'http://localhost:3000', sameSite: 'None', secure: true });
         toastrOnTopCenter(response.message, "success")
-        // let isAuthCookiesSet = setAuthCookie({
-        //   token: response.data.auth_token,
-        //   expiresIn: response.data.exp,
-        //   tokenType: "Bearer",
-        //   authState: {},
-        // });
-
-        // if (isAuthCookiesSet) {
-        //   navigate("/dashboard");
-        // } else {
-        //   toastrOnTopCenter("Something went wrong, try later", "error");
-        // }
+        navigate('/dashboard');
       })
       .catch((errors) => {
-        // setErrorBag(errors);
         toastrOnTopCenter(errors.message, "error")
       })
       .finally(() => {
@@ -58,7 +49,10 @@ const Login = () => {
           <input type="password" placeholder="Password" value={credential.password} onChange={(e) => setCredential({ ...credential, password: e.target.value })} required />
         </div>
         <div className={styles.authSubmitbutton}>
-          <button type="submit">Login</button>
+          <button type="submit">
+            {processing && <i className="fa fa-spinner fa-spin"></i>}
+            {!processing && "Login"}
+          </button>
         </div>
       </form>
       <p className={styles.loginForgotPassword}>
