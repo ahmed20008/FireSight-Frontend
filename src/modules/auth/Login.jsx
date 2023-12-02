@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import authLayout from "../../layout/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
 import { signIn } from "../../api/AuthApi";
-// import { useSignIn } from "react-auth-kit";
-import Cookies from 'js-cookie';
+import { useCookies } from 'react-cookie'; // Import useCookies hook
 import { toastrOnTopCenter } from "../../utils/toastr";
 
 const Login = () => {
   const navigate = useNavigate();
-  // const setAuthCookie = useSignIn();
   const initialValue = {
     email: "",
     password: "",
@@ -17,6 +15,7 @@ const Login = () => {
 
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState(initialValue);
+  const [cookies, setCookie] = useCookies(['auth_token']);
 
   const login = (e) => {
     e.preventDefault();
@@ -24,8 +23,8 @@ const Login = () => {
 
     signIn({ ...credential })
       .then((response) => {
-        // const { auth_token, exp } = response.data;
-        // Cookies.set('auth_token', auth_token, { expires: new Date(exp * 1000), path: '/', domain: 'http://localhost:3000', sameSite: 'None', secure: true });
+        const { auth_token, exp } = response.data;
+        setCookie('auth_token', auth_token);
         toastrOnTopCenter(response.message, "success")
         navigate('/dashboard');
       })

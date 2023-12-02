@@ -8,6 +8,7 @@ const NewPassword = lazy(() => import("../modules/auth/NewPassword"));
 /*** Portal Pages ***/
 const Dashboard = lazy(() => import("../modules/dashboard/Dashboard"));
 const Cameras = lazy(() => import("../modules/cameras/Cameras"));
+const MyCameras = lazy(() => import("../modules/cameras/MyCameras"));
 const AddCamera = lazy(() => import("../modules/add-camera/AddCamera"));
 const Profile = lazy(() => import("../modules/profile/Profile"));
 const AllUsers = lazy(() => import("../modules/all-users/AllUsers"));
@@ -37,6 +38,10 @@ export const routes = [
   {
     path: "/cameras",
     element: <Cameras />,
+  },
+  {
+    path: "/my-cameras",
+    element: <MyCameras />,
   },
   {
     path: "/add-camera",

@@ -54,7 +54,15 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
                 <div>
                   <IconDeviceCctv />
                 </div>
-                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Cameras</span>
+                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>All Cameras</span>
+              </Link>
+            </li>
+            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "my-cameras" ? styles.sidebarActive : ""}`}>
+              <Link to="/my-cameras">
+                <div>
+                  <IconDeviceCctv />
+                </div>
+                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>My Cameras</span>
               </Link>
             </li>
             <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "add-camera" ? styles.sidebarActive : ""}`}>

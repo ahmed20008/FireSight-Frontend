@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import authenticatedLayout from '../../layout/AuthenticatedLayout';
 import HeadingHeader from "../../modules/shared/components/HeadingHeader";
 import styles from "../../assets/css/add-camera.module.css";
+import buttonStyles from "../../assets/css/buttons.module.css";
 import { addCamera } from '../../api/CameraApi';
 import { toastrOnTopCenter } from '../../utils/toastr';
 
@@ -59,10 +60,12 @@ const AddCamera = () => {
             <label htmlFor="camera-description">Description:</label>
             <textarea required className='form-control' id="camera-description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Enter Description" rows="4"></textarea>
           </div>
-          <button type="submit" className='btn btn-primary w-100 my-2 py-2'>
-            {processing && <i className="fa fa-spinner fa-spin"></i>}
-            {!processing && "Submit"}
-          </button>
+          <div className='text-start'>
+            <button type="submit" className={`${buttonStyles.buttonBlackRounded} w-25`}>
+              {processing && <i className="fa fa-spinner fa-spin"></i>}
+              {!processing && "Submit"}
+            </button>
+          </div>
         </form>
       </div>
     </>

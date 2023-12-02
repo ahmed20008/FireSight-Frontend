@@ -3,20 +3,21 @@ import authenticatedLayout from '../../layout/AuthenticatedLayout';
 import HeadingHeader from '../shared/components/HeadingHeader';
 import { cameraImg } from '../../utils/staticImages';
 import styles from "../../assets/css/camera-page.module.css";
-import { allCameras, deleteCamera } from '../../api/CameraApi';
+import { myCameras, deleteCamera } from '../../api/CameraApi';
 import { toastrOnTopCenter } from '../../utils/toastr';
 import buttonStyles from "../../assets/css/buttons.module.css";
 
-const Cameras = () => {
+const MyCameras = () => {
   const [cameraInfo, setCameraInfo] = useState([]);
   const [cameraToDelete, setCameraToDelete] = useState(null);
+  const myId = "656373821cd23e2426f6b0d2" //value from redux (me api)
 
   useEffect(() => {
-    fetchAllCameras();
+    fetchMyCameras(myId);
   }, []);
 
-  const fetchAllCameras = () => {
-    allCameras()
+  const fetchMyCameras = (myId) => {
+    myCameras(myId)
       .then((response) => {
         setCameraInfo(response.cameras);
       })
@@ -39,7 +40,7 @@ const Cameras = () => {
 
   return (
     <>
-      <HeadingHeader text={"All Cameras"} />
+      <HeadingHeader text={"My Cameras"} />
       <div className="d-flex flex-row align-items-center flex-wrap gap-3">
         {cameraInfo.map((camera, index) => (
           <div key={index}>
@@ -63,4 +64,4 @@ const Cameras = () => {
   )
 }
 
-export default authenticatedLayout(Cameras);
+export default authenticatedLayout(MyCameras);

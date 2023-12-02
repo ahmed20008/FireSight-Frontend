@@ -18,8 +18,28 @@ export async function allCameras() {
     })
 };
 
+export async function myCameras(id) {
+  return await axios.get(`/all-camera/${id}`)
+    .then(response => {
+      return response.data
+
+    }).catch(error => {
+      throw error.response.data
+    })
+};
+
 export async function addCamera(payload = ADD_CAMERA_PAYLOAD) {
   return await axios.post('/add-camera', payload)
+    .then(response => {
+      return response.data
+
+    }).catch(error => {
+      throw error.response.data
+    })
+};
+
+export async function deleteCamera(cameraId) {
+  return await axios.delete(`/delete-camera/${cameraId}`)
     .then(response => {
       return response.data
 
