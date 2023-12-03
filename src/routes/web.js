@@ -18,7 +18,7 @@ const UpgradeToPro = lazy(() => import("../modules/upgrade/UpgradeToPro"));
 
 const ProtectedRoute = ({ component }) => {
   const [cookies] = useCookies(['auth_token']);
-
+  
   if (!cookies.auth_token) {
     return <Navigate to="/" />;
   }
@@ -49,26 +49,26 @@ export const routes = [
   },
   {
     path: "/cameras",
-    element: <ProtectedRoute component={<Cameras />} />,
+    element: <Cameras />,
   },
   {
     path: "/my-cameras",
-    element: <ProtectedRoute component={<MyCameras />} />,
+    element: <MyCameras />,
   },
   {
     path: "/add-camera",
-    element: <ProtectedRoute component={<AddCamera />} />,
+    element: <AddCamera />,
   },
   {
     path: "/profile",
-    element: <ProtectedRoute component={<Profile />} />,
+    element: <Profile />,
   },
   {
     path: "/all-users",
-    element: <ProtectedRoute component={<AllUsers />} />,
+    element: <AllUsers />,
   },
   {
     path: "/upgrade-to-pro",
-    element: <ProtectedRoute component={<UpgradeToPro />} />,
+    element: <UpgradeToPro />,
   },
 ];

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "../../assets/css/navbar.module.css?v1.0";
 import { globalImages } from "../../utils/staticImages";
-
+import { IconBell } from "@tabler/icons-react";
 const Navbar = ({ sidebarPinned, updateSidebarState }) => {
 
   return (
@@ -15,6 +15,9 @@ const Navbar = ({ sidebarPinned, updateSidebarState }) => {
       </button>
       <div className={styles.searchbarContainer}>
       </div>
+      <span className={styles.notificaion}>
+        <button><IconBell width={20} height={20} /></button>
+      </span>
       <span className={styles.navbarName}>John Doe</span>
       <div className="dropdown">
         <img src={globalImages.avatar} className={`rounded-circle ${styles.navbarAvatar}`} alt="Avatar" data-bs-toggle="dropdown" aria-expanded="false" />

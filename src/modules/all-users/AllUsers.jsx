@@ -63,14 +63,14 @@ const AllUsers = () => {
                 <td>{index + 1 + (currentPage - 1) * usersPerPage}</td>
                 <td>
                   <img className={styles.userImg} src={globalImages.avatar} alt="avatar" />
-                  {user.name}
+                  {user?.name ?? ""}
                 </td>
-                <td>{user.email}</td>
+                <td>{user?.email ?? ""}</td>
                 <td>
-                  {user.permissions.map(permission => (
+                  {user?.permissions?.map(permission => (
                     <span key={permission}>
-                      {permission.charAt(0).toUpperCase() + permission.slice(1)}
-                      {' '}
+                      {permission?.charAt(0)?.toUpperCase() + permission?.slice(1)}
+                      {" "}
                     </span>
                   ))}
                 </td>

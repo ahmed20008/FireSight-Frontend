@@ -64,3 +64,13 @@ export async function logout() {
       throw error.response.data;
     })
 }
+
+export async function me() {
+  return await axios.get('/me')
+    .then(response => {
+      return response
+
+    }).catch(error => {
+      throw error.response
+    })
+}

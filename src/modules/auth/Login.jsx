@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import authLayout from "../../layout/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
@@ -15,7 +15,7 @@ const Login = () => {
 
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState(initialValue);
-  const [cookies, setCookie] = useCookies(['auth_token']);
+  const [cookies, setCookie] = useCookies(['auth_token']); 
 
   const login = (e) => {
     e.preventDefault();
@@ -27,6 +27,11 @@ const Login = () => {
         setCookie('auth_token', auth_token);
         toastrOnTopCenter(response.message, "success")
         navigate('/dashboard');
+        if (cookies.auth_token) {
+          console.log("Auth token is present:", cookies.auth_token);
+        } else {
+          console.log("Auth token is not present");
+        }
       })
       .catch((errors) => {
         toastrOnTopCenter(errors.message, "error")

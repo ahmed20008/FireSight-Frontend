@@ -1,17 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./partials/Navbar";
 import Sidebar from "./partials/Sidebar";
 import Header from "./partials/Header";
 import Footer from "./partials/Footer";
 import styles from "../assets/css/authenticated-layout.module.css";
+import { me } from "../api/AuthApi";
 
 function authenticatedLayout(WrappedComponent) {
   return function AuthenticatedLayout(props) {
     const [sidebarPinned, setSidebarPinned] = useState(true);
 
+    useEffect(() => {
+      refreshCurrenUserInfo();
+    }, []);
+
     const updateSidebarState = () => {
       setSidebarPinned(!sidebarPinned);
     };
+
+    const refreshCurrenUserInfo = () => {
+      me()
+        .then((response) => {
+          const authUser = response;
+          console.log(authUser);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
 
     return (
       <>
@@ -22,7 +39,7 @@ function authenticatedLayout(WrappedComponent) {
             <Header />
             <div className={styles.mainContent}>
               <div className={`card my-5 px-5 py-4 ${styles.authenticatedCard}`}>
-                <WrappedComponent {...props} />
+                <WrappedComponent {...props} refreshCurrenUserInfo={refreshCurrenUserInfo} />
               </div>
             </div>
             <Footer />
