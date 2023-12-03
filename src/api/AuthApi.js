@@ -54,3 +54,13 @@ export async function updatePassword(payload = UPDATE_PASSWORD_PAYLOAD) {
       throw error.response.data
     })
 };
+
+export async function logout() {
+  return await axios.post('/logout')
+    .then(response => {
+      return response.data;
+
+    }).catch(error => {
+      throw error.response.data;
+    })
+}

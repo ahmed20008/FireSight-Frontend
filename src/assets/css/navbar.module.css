@@ -68,7 +68,7 @@
   outline: none;
 }
 
-.searchbar > svg {
+.searchbar>svg {
   color: #757775;
   width: 16px;
   height: auto;
@@ -84,10 +84,11 @@
 }
 
 .navbarAvatar {
-  width: 45px !important;
-  height: 45px !important;
+  width: 40px !important;
+  height: 40px !important;
   object-fit: cover;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 @media (max-width: 767px) {
@@ -116,7 +117,7 @@
     cursor: pointer;
   }
 
-  .searchbar > svg {
+  .searchbar>svg {
     width: 12px;
     height: auto;
   }

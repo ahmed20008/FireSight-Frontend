@@ -1,7 +1,8 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../../assets/css/navbar.module.css?v1.0";
+import { globalImages } from "../../utils/staticImages";
 
-const Navbar = ({sidebarPinned, updateSidebarState}) => {
+const Navbar = ({ sidebarPinned, updateSidebarState }) => {
 
   return (
     <div className={styles.header}>
@@ -16,7 +17,7 @@ const Navbar = ({sidebarPinned, updateSidebarState}) => {
       </div>
       <span className={styles.navbarName}>John Doe</span>
       <div className="dropdown">
-        <img src="#" className={`rounded-circle ${styles.navbarAvatar}`} alt="Avatar" data-bs-toggle="dropdown" aria-expanded="false" />
+        <img src={globalImages.avatar} className={`rounded-circle ${styles.navbarAvatar}`} alt="Avatar" data-bs-toggle="dropdown" aria-expanded="false" />
         <ul className="dropdown-menu">
           <li>
             <Link className="dropdown-item" href="/settings">
@@ -28,11 +29,6 @@ const Navbar = ({sidebarPinned, updateSidebarState}) => {
               Settings
             </Link>
           </li>
-          {/* <li>
-            <Link className="dropdown-item" href="#">
-              Payment
-            </Link>
-          </li> */}
         </ul>
       </div>
     </div>

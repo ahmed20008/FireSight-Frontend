@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconDeviceCctv, IconCirclePlus, IconLogout } from '@tabler/icons-react';
 import { authImages } from "../../utils/staticImages";
 import styles from "../../assets/css/sidebar.module.css?v1.0";
+import { logout } from "../../api/AuthApi";
+import { toastrOnTopCenter } from "../../utils/toastr";
+import { useCookies } from 'react-cookie';
 
 const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentRoute = location.pathname;
   const pathArray = currentRoute.split("/").filter(Boolean);
+  const [cookies, setCookie, removeCookie] = useCookies(['auth_token']);
 
   const [sidebarShow, setSidebarShow] = useState(false);
   const handleSidebarHover = (e) => {
@@ -20,6 +25,17 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
     if (!sidebarPinned) {
       setSidebarShow(false);
     }
+  };
+
+  const handleLogout = () => {
+    logout()
+      .then((response) => {
+        removeCookie('auth_token', { path: '/' });
+        navigate('/');
+      })
+      .catch((errors) => {
+        toastrOnTopCenter(errors.message, "error");
+      })
   };
 
   return (
@@ -101,7 +117,7 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
             </li>
             {sidebarPinned && <p className="py-2 mb-0 text-white">OTHERS</p>}
             <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "logout" ? styles.sidebarActive : ""}`}>
-              <Link to="#">
+              <Link to="#" onClick={handleLogout}>
                 <div>
                   <IconLogout />
                 </div>

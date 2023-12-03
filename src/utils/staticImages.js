@@ -5,5 +5,8 @@ let authImages = {
 let cameraImg = {
   camera: require("../assets/images/camera-img.png")
 }
+let globalImages = {
+  avatar: require("../assets/images/avatar.png")
+}
 
-export { authImages, cameraImg };
+export { authImages, cameraImg, globalImages };

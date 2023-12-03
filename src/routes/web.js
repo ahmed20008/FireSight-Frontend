@@ -1,4 +1,6 @@
 import { lazy } from "react";
+import { Navigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const Login = lazy(() => import("../modules/auth/Login"));
 const Register = lazy(() => import("../modules/auth/Register"));
@@ -13,6 +15,16 @@ const AddCamera = lazy(() => import("../modules/add-camera/AddCamera"));
 const Profile = lazy(() => import("../modules/profile/Profile"));
 const AllUsers = lazy(() => import("../modules/all-users/AllUsers"));
 const UpgradeToPro = lazy(() => import("../modules/upgrade/UpgradeToPro"));
+
+const ProtectedRoute = ({ component }) => {
+  const [cookies] = useCookies(['auth_token']);
+
+  if (!cookies.auth_token) {
+    return <Navigate to="/" />;
+  }
+
+  return component;
+};
 
 export const routes = [
   {
@@ -33,30 +45,30 @@ export const routes = [
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <ProtectedRoute component={<Dashboard />} />,
   },
   {
     path: "/cameras",
-    element: <Cameras />,
+    element: <ProtectedRoute component={<Cameras />} />,
   },
   {
     path: "/my-cameras",
-    element: <MyCameras />,
+    element: <ProtectedRoute component={<MyCameras />} />,
   },
   {
     path: "/add-camera",
-    element: <AddCamera />,
+    element: <ProtectedRoute component={<AddCamera />} />,
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: <ProtectedRoute component={<Profile />} />,
   },
   {
     path: "/all-users",
-    element: <AllUsers />,
+    element: <ProtectedRoute component={<AllUsers />} />,
   },
   {
     path: "/upgrade-to-pro",
-    element: <UpgradeToPro />,
+    element: <ProtectedRoute component={<UpgradeToPro />} />,
   },
 ];

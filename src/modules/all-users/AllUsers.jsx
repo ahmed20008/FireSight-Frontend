@@ -5,6 +5,7 @@ import { IconTrash } from '@tabler/icons-react';
 import styles from "../../assets/css/all-users.module.css";
 import { allUsers, deleteUsers } from '../../api/AllUsersApi';
 import { toastrOnTopCenter } from '../../utils/toastr';
+import { globalImages } from '../../utils/staticImages';
 
 const AllUsers = () => {
   const [allUsersData, setAllUsersData] = useState([]);
@@ -45,37 +46,49 @@ const AllUsers = () => {
   return (
     <>
       <HeadingHeader text={"All Users"} />
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Email</th>
-            <th scope="col">Name</th>
-            <th scope="col">Permissions</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers.map((user, index) => (
-            <tr key={user._id}>
-              <th scope="row">{index + 1 + (currentPage - 1) * usersPerPage}</th>
-              <td>{user.email}</td>
-              <td>{user.name}</td>
-              <td>{user.permissions.join(', ')}</td>
-              <td>
-                <button onClick={() => handleDeleteUser(user._id)} className='border-0 bg-transparent'>
-                  <IconTrash />
-                </button>
-              </td>
+      <div className={styles.allUserTable}>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">No </th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Permissions</th>
+              <th>Delete</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentUsers.map((user, index) => (
+              <tr key={user._id}>
+                <td>{index + 1 + (currentPage - 1) * usersPerPage}</td>
+                <td>
+                  <img className={styles.userImg} src={globalImages.avatar} alt="avatar" />
+                  {user.name}
+                </td>
+                <td>{user.email}</td>
+                <td>
+                  {user.permissions.map(permission => (
+                    <span key={permission}>
+                      {permission.charAt(0).toUpperCase() + permission.slice(1)}
+                      {' '}
+                    </span>
+                  ))}
+                </td>
+                <td>
+                  <button onClick={() => handleDeleteUser(user._id)} className='border-0 bg-transparent'>
+                    <IconTrash />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <nav>
         <ul className="pagination">
           {Array.from({ length: Math.ceil(allUsersData.length / usersPerPage) }, (_, index) => (
             <li key={index + 1} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-              <button onClick={() => paginate(index + 1)} className="page-link">
+              <button onClick={() => paginate(index + 1)} className={`page-link ${styles.paginationButton}`}>
                 {index + 1}
               </button>
             </li>
