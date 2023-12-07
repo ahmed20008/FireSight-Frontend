@@ -5,8 +5,10 @@ import styles from "../../assets/css/auth-pages.module.css?v1.0";
 import { signIn } from "../../api/AuthApi";
 import { useCookies } from 'react-cookie'; // Import useCookies hook
 import { toastrOnTopCenter } from "../../utils/toastr";
+import { updateCurrentUser } from "../../redux/actionCreators";
+import { connect } from "react-redux";
 
-const Login = () => {
+const Login = (props) => {
   const navigate = useNavigate();
   const initialValue = {
     email: "",
@@ -15,7 +17,7 @@ const Login = () => {
 
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState(initialValue);
-  const [cookies, setCookie] = useCookies(['auth_token']); 
+  const [cookies, setCookie] = useCookies(['auth_token']);
 
   const login = (e) => {
     e.preventDefault();
@@ -23,15 +25,13 @@ const Login = () => {
 
     signIn({ ...credential })
       .then((response) => {
+        const authUser = response.data.user;
         const { auth_token, exp } = response.data;
         setCookie('auth_token', auth_token);
+        props.updateCurrentUser(authUser);
+
         toastrOnTopCenter(response.message, "success")
         navigate('/dashboard');
-        if (cookies.auth_token) {
-          console.log("Auth token is present:", cookies.auth_token);
-        } else {
-          console.log("Auth token is not present");
-        }
       })
       .catch((errors) => {
         toastrOnTopCenter(errors.message, "error")
@@ -66,5 +66,10 @@ const Login = () => {
     </>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentUser: (user) => dispatch(updateCurrentUser(user)),
+  };
+};
 
-export default authLayout(Login);
+export default connect(null, mapDispatchToProps)(authLayout(Login));

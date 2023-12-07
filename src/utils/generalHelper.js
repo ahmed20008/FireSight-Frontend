@@ -1,7 +1,5 @@
-export const formatDateToYYMMDD = (inputDate)  => {
-    const date = new Date(inputDate);
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${month}/${day}/${year}`;
-  };
+export const mapObject = (obj, other) => {
+  for (let key in obj) {
+    obj[key] = other.hasOwnProperty(key) ? other[key] : obj[key];
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconDeviceCctv, IconCirclePlus, IconLogout } from '@tabler/icons-react';
+import { IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconDeviceCctv, IconCirclePlus, IconLogout, IconUserPlus } from '@tabler/icons-react';
 import { authImages } from "../../utils/staticImages";
 import styles from "../../assets/css/sidebar.module.css?v1.0";
 import { logout } from "../../api/AuthApi";
@@ -65,30 +65,32 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
               </Link>
             </li>
             {sidebarPinned && <p className="py-2 mb-0 text-white">CAMERA INFO</p>}
-            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "cameras" ? styles.sidebarActive : ""}`}>
-              <Link to="/cameras">
-                <div>
-                  <IconDeviceCctv />
-                </div>
-                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>All Cameras</span>
-              </Link>
-            </li>
-            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "my-cameras" ? styles.sidebarActive : ""}`}>
+            {true &&
+              <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "cameras" ? styles.sidebarActive : ""}`}>
+                <Link to="/cameras">
+                  <div>
+                    <IconDeviceCctv />
+                  </div>
+                  <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>All Cameras</span>
+                </Link>
+              </li>
+            }
+            {true && <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "my-cameras" ? styles.sidebarActive : ""}`}>
               <Link to="/my-cameras">
                 <div>
                   <IconDeviceCctv />
                 </div>
                 <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>My Cameras</span>
               </Link>
-            </li>
-            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "add-camera" ? styles.sidebarActive : ""}`}>
+            </li>}
+            {true && <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "add-camera" ? styles.sidebarActive : ""}`}>
               <Link to="/add-camera">
                 <div>
                   <IconCirclePlus />
                 </div>
                 <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Add Camera</span>
               </Link>
-            </li>
+            </li>}
             {sidebarPinned && <p className="py-2 mb-0 text-white">PROFILE</p>}
             <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "profile" ? styles.sidebarActive : ""}`}>
               <Link to="/profile">
@@ -98,23 +100,35 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
                 <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Profile</span>
               </Link>
             </li>
-            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "all-users" ? styles.sidebarActive : ""}`}>
+            {true && <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "add-member" ? styles.sidebarActive : ""}`}>
+              <Link to="/add-member">
+                <div>
+                  <IconUserPlus />
+                </div>
+                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Add Member</span>
+              </Link>
+            </li>}
+            {true && <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "all-users" ? styles.sidebarActive : ""}`}>
               <Link to="/all-users">
                 <div>
                   <IconUsers />
                 </div>
                 <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>All Users</span>
               </Link>
-            </li>
-            {sidebarPinned && <p className="py-2 mb-0 text-white">UPGRADE</p>}
-            <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "upgrade-to-pro" ? styles.sidebarActive : ""}`}>
-              <Link to="/upgrade-to-pro">
-                <div>
-                  <IconShoppingBag />
-                </div>
-                <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Upgrade to Pro</span>
-              </Link>
-            </li>
+            </li>}
+            {true &&
+              <>
+                {sidebarPinned && <p className="py-2 mb-0 text-white">UPGRADE</p>}
+                <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "upgrade-to-pro" ? styles.sidebarActive : ""}`}>
+                  <Link to="/upgrade-to-pro">
+                    <div>
+                      <IconShoppingBag />
+                    </div>
+                    <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Upgrade to Pro</span>
+                  </Link>
+                </li>
+              </>
+            }
             {sidebarPinned && <p className="py-2 mb-0 text-white">OTHERS</p>}
             <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "logout" ? styles.sidebarActive : ""}`}>
               <Link to="#" onClick={handleLogout}>

@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import authenticatedLayout from '../../layout/AuthenticatedLayout';
 import HeadingHeader from "../../modules/shared/components/HeadingHeader";
 import { globalImages } from '../../utils/staticImages';
 import styles from "../../assets/css/profile.module.css";
+import buttonStyles from "../../assets/css/buttons.module.css";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from '../../redux/actionCreators';
 
 const Profile = () => {
+  const currentUser = useSelector((state) => getCurrentUser(state));
+  console.log(currentUser);
+  const [processing, setProcessing] = useState(false);
+
   return (
     <>
       <HeadingHeader text={"Profile"} />
@@ -24,6 +31,10 @@ const Profile = () => {
               Role: <span>User</span>
             </h2>
           </div>
+          <button type="submit" className={`${buttonStyles.buttonBlackRounded} w-50 mt-4`}>
+            {processing && <i className="fa fa-spinner fa-spin"></i>}
+            {!processing && "Delete Account"}
+          </button>
         </div>
       </div>
     </>

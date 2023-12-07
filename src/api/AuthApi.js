@@ -65,10 +65,14 @@ export async function logout() {
     })
 }
 
-export async function me() {
-  return await axios.get('/me')
+export async function me(token = null) {
+  return await axios.get('/me', {
+    params: {
+      token: token
+    }
+  })
     .then(response => {
-      return response
+      return response.data
 
     }).catch(error => {
       throw error.response
