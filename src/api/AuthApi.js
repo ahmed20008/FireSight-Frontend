@@ -9,17 +9,11 @@ const SIGNUp_PAYLOAD = {
   name: null,
   email: null,
   phone: null,
-  // permissions: "user",
-  // verified: false,
-  // Fire_dept_address: {
-  //   address: null,
-  //   city: null,
-  //   state: null,
-  // },
   address: {
     address: null,
     city: null,
     state: null,
+    zipcode: null,
   },
 };
 

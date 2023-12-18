@@ -60,7 +60,7 @@ const AllUsers = () => {
                   <th scope="col">No </th>
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
-                  <th scope="col">Permissions</th>
+                  <th scope="col">Address</th>
                   <th scope="col">Status</th>
                   <th>Delete</th>
                 </tr>
@@ -74,11 +74,7 @@ const AllUsers = () => {
                       {user?.name ?? ""}
                     </td>
                     <td>{user?.email ?? ""}</td>
-                    <td>
-                      {user?.permissions?.map((permission) => (
-                        <span key={permission}>{permission?.charAt(0)?.toUpperCase() + permission?.slice(1)} </span>
-                      ))}
-                    </td>
+                    <td>{user?.address ? `${user.address.address}, ${user.address.city}, ${user.address.state} ${user.address.zipcode}` : "N/A"}</td>
                     <td>{user.verified === true ? "Verified" : "Unverified"}</td>
                     <td>
                       <button onClick={() => handleDeleteUser(user._id)} className="border-0 bg-transparent">

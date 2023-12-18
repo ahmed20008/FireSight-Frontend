@@ -7,7 +7,14 @@ const initialState = {
   name: null,
   email: null,
   verified: null,
-  permissions: [],
+  permissions: null,
+  phone: null,
+  address : {
+    address: null,
+    city: null,
+    state: null,
+    zipcode: null,
+  }
 };
 
 const authUserReducer = (state = initialState, action) => {

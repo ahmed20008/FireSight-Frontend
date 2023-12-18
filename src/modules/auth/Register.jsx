@@ -2,26 +2,21 @@ import React, {useState} from "react";
 import authLayout from "../../layout/AuthLayout";
 import {Link} from "react-router-dom";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
+import {useNavigate} from "react-router-dom";
 import {toastrOnTopCenter} from "../../utils/toastr";
 import {signUp} from "../../api/AuthApi";
 
 const Regsiter = () => {
+  const navigate = useNavigate();
   const initialValue = {
     name: "",
     email: "",
     phone: "",
-    // permissions: "user",
-    // verified: false,
-    // Fire_dept_address: {
-    //   address: "",
-    //   city: "",
-    //   state: "",
-    // },
     address: {
       address: "",
       city: "",
       state: "",
-      // zipcode: "",
+      zipcode: "",
     },
   };
 
@@ -34,7 +29,7 @@ const Regsiter = () => {
 
     signUp({...signupData})
       .then((response) => {
-        toastrOnTopCenter(response.message, "success");
+        navigate("/thank-you");
       })
       .catch((errors) => {
         toastrOnTopCenter(errors.message, "error");
@@ -85,9 +80,9 @@ const Regsiter = () => {
                 id="zipcode"
                 name="zipcode"
                 placeholder="Zipcode"
-                // value={signupData.address.zipcode}
-                // onChange={(e) => setSignupData({...signupData, address: {...signupData.address, zipcode: e.target.value}})}
-                // required
+                value={signupData.address.zipcode}
+                onChange={(e) => setSignupData({...signupData, address: {...signupData.address, zipcode: e.target.value}})}
+                required
               />
             </div>
           </div>

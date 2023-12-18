@@ -61,33 +61,41 @@ const MyCameras = () => {
         <Loader />
       ) : (
         <div className="d-flex flex-row align-items-center flex-wrap gap-3">
-          {cameraInfo.map((camera, index) => (
-            <div key={index}>
-              <div className={`card ${styles.camerasCard}`}>
-                <div className="text-center">
-                  <img className="img-fluid" width={80} height={80} src={cameraImg.camera} alt="camera-img" />
-                </div>
-                <h2>{camera.name}</h2>
-                <p>
-                  <b>Location:</b> {camera.location}
-                </p>
-                <p>
-                  <b>Camera RTSP:</b> {camera.link}
-                </p>
-                <p>
-                  <b>Field of View:</b> {camera.view}
-                </p>
-                <p>
-                  <b>Description:</b> {camera.description}
-                </p>
-                <div className="my-3">
-                  <button className={buttonStyles.buttonBlackRounded} onClick={() => handleDeleteClick(camera._id)}>
-                    Delete
-                  </button>
-                </div>
-              </div>
+          {cameraInfo.length === 0 ? (
+            <div className="alert alert-warning w-100" role="alert">
+              No cameras found. You can add cameras using the provided options.
             </div>
-          ))}
+          ) : (
+            <div className="d-flex flex-row align-items-center flex-wrap gap-3">
+              {cameraInfo.map((camera, index) => (
+                <div key={index}>
+                  <div className={`card ${styles.camerasCard}`}>
+                    <div className="text-center">
+                      <img className="img-fluid" width={80} height={80} src={cameraImg.camera} alt="camera-img" />
+                    </div>
+                    <h2>{camera.name}</h2>
+                    <p>
+                      <b>Location:</b> {camera.location}
+                    </p>
+                    <p>
+                      <b>Camera RTSP:</b> {camera.link}
+                    </p>
+                    <p>
+                      <b>Field of View:</b> {camera.view}
+                    </p>
+                    <p>
+                      <b>Description:</b> {camera.description}
+                    </p>
+                    <div className="my-3">
+                      <button className={buttonStyles.buttonBlackRounded} onClick={() => handleDeleteClick(camera._id)}>
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </>

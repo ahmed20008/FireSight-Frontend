@@ -43,7 +43,7 @@ const Dashboard = () => {
               <p># of Cameras</p>
             </div>
           </div>
-          {currentUser?.permissions.includes(ADMIN) && (
+          {currentUser?.permissions === ADMIN && (
             <div className="col-md-4 mb-2">
               <div className={`card ${styles.statsCard}`}>
                 <h2>19</h2>

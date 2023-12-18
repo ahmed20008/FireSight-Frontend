@@ -10,7 +10,6 @@ import {getCurrentUser} from "../../redux/selectors";
 const Profile = () => {
   const currentUser = useSelector((state) => getCurrentUser(state));
   let capitalizedName = currentUser?.name?.charAt(0)?.toUpperCase() + currentUser?.name?.slice(1);
-  const userPermissions = currentUser?.permissions ?? [];
   const [processing, setProcessing] = useState(false);
 
   return (
@@ -30,7 +29,8 @@ const Profile = () => {
               Email: <span>{currentUser?.email ?? ""}</span>
             </h2>
             <h2>
-              Role: <span>{userPermissions.join(", ")}</span>
+              Role:
+              <span> {currentUser?.permissions?.charAt(0)?.toUpperCase() + currentUser?.permissions?.slice(1)}</span>
             </h2>
           </div>
           <button type="submit" className={`${buttonStyles.buttonBlackRounded} w-50 mt-4`}>

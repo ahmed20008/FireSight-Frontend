@@ -17,6 +17,7 @@ const AllUsers = lazy(() => import("../modules/all-users/AllUsers"));
 const AllRequest = lazy(() => import("../modules/all-request/AllRequest"));
 const UpgradeToPro = lazy(() => import("../modules/upgrade/UpgradeToPro"));
 const Error404 = lazy(() => import("../modules/shared/components/Error404"));
+const Thankyou = lazy(() => import("../modules/auth/Thankyou"))
 
 const ProtectedRoute = ({component}) => {
   const [cookies] = useCookies(["auth_token"]);
@@ -44,6 +45,10 @@ export const routes = [
   {
     path: "/update-password/:id/:resetToken",
     element: <NewPassword />,
+  },
+  {
+    path: "/thank-you",
+    element: <Thankyou />,
   },
   {
     path: "/dashboard",

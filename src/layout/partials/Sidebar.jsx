@@ -70,7 +70,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
               </Link>
             </li>
             {sidebarPinned && <p className="py-2 mb-0 text-white">CAMERA INFO</p>}
-            {currentUser?.permissions.includes(ADMIN) && (
+            {currentUser?.permissions === ADMIN && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "cameras" ? styles.sidebarActive : ""}`}>
                 <Link to="/cameras">
                   <div>
@@ -80,7 +80,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
                 </Link>
               </li>
             )}
-            {currentUser?.permissions.includes(USER) && (
+            {currentUser?.permissions === USER && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "my-cameras" ? styles.sidebarActive : ""}`}>
                 <Link to="/my-cameras">
                   <div>
@@ -90,7 +90,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
                 </Link>
               </li>
             )}
-            {currentUser?.permissions.includes(USER) && (
+            {currentUser?.permissions === USER && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "add-camera" ? styles.sidebarActive : ""}`}>
                 <Link to="/add-camera">
                   <div>
@@ -101,7 +101,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
               </li>
             )}
             {sidebarPinned && <p className="py-2 mb-0 text-white">PROFILE</p>}
-            {currentUser?.permissions.includes(USER) && (
+            {currentUser?.permissions === USER && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "profile" ? styles.sidebarActive : ""}`}>
                 <Link to="/profile">
                   <div>
@@ -111,7 +111,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
                 </Link>
               </li>
             )}
-            {currentUser?.permissions.includes(ADMIN) && (
+            {currentUser?.permissions === ADMIN && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "all-request" ? styles.sidebarActive : ""}`}>
                 <Link to="/all-request">
                   <div>
@@ -121,7 +121,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
                 </Link>
               </li>
             )}
-            {currentUser?.permissions.includes(ADMIN) && (
+            {currentUser?.permissions === ADMIN && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "all-users" ? styles.sidebarActive : ""}`}>
                 <Link to="/all-users">
                   <div>
@@ -131,7 +131,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
                 </Link>
               </li>
             )}
-            {currentUser?.permissions.includes(USER) && (
+            {currentUser?.permissions === USER && (
               <>
                 {sidebarPinned && <p className="py-2 mb-0 text-white">UPGRADE</p>}
                 <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "upgrade-to-pro" ? styles.sidebarActive : ""}`}>
