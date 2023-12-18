@@ -1,10 +1,4 @@
-import { GET_CURRENT_USER, UPDATE_CURRENT_USER } from "../types";
-
-export const getCurrentUser = () => {
-  return {
-    type: GET_CURRENT_USER,
-  };
-};
+import {UPDATE_CURRENT_USER} from "../types";
 
 export const updateCurrentUser = (user) => {
   return {

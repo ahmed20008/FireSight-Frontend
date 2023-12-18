@@ -1,0 +1,20 @@
+.statsContainer {
+  margin: 30px 0px 80px 0px;
+}
+.statsCard {
+  border: 1px solid #c5c5c5;
+  background-color: #eaeae1;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.statsCard p {
+  font-weight: 700;
+  font-family: FTR;
+}
+.statsCard h2 {
+  font-weight: 700;
+  font-size: 50px;
+  font-family: FTR;
+
+}

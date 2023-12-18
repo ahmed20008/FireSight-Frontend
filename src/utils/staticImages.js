@@ -3,10 +3,11 @@ let authImages = {
   authSideImg: require("../assets/images/auth-side-image.jpg"),
 };
 let cameraImg = {
-  camera: require("../assets/images/camera-img.png")
-}
+  camera: require("../assets/images/camera-img.png"),
+};
 let globalImages = {
-  avatar: require("../assets/images/avatar.png")
-}
+  avatar: require("../assets/images/avatar.png"),
+  error404: require("../assets/images/error-404.png"),
+};
 
-export { authImages, cameraImg, globalImages };
+export {authImages, cameraImg, globalImages};

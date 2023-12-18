@@ -8,7 +8,19 @@ const LOGIN_PAYLOAD = {
 const SIGNUp_PAYLOAD = {
   name: null,
   email: null,
-  password: null,
+  phone: null,
+  // permissions: "user",
+  // verified: false,
+  // Fire_dept_address: {
+  //   address: null,
+  //   city: null,
+  //   state: null,
+  // },
+  address: {
+    address: null,
+    city: null,
+    state: null,
+  },
 };
 
 const UPDATE_PASSWORD_PAYLOAD = {
@@ -16,65 +28,71 @@ const UPDATE_PASSWORD_PAYLOAD = {
 };
 
 export async function signIn(payload = LOGIN_PAYLOAD) {
-  return await axios.post('/login', payload)
-    .then(response => {
-      return response.data
-
-    }).catch(error => {
-      throw error.response.data
+  return await axios
+    .post("/login", payload)
+    .then((response) => {
+      return response.data;
     })
-};
+    .catch((error) => {
+      throw error.response.data;
+    });
+}
 
 export async function signUp(payload = SIGNUp_PAYLOAD) {
-  return await axios.post('/signup', payload)
-    .then(response => {
-      return response.data
-
-    }).catch(error => {
-      throw error.response.data
+  return await axios
+    .post("/signup", payload)
+    .then((response) => {
+      return response.data;
     })
-};
+    .catch((error) => {
+      throw error.response.data;
+    });
+}
 
-export async function forgetPassword(payload = { email: null }) {
-  return await axios.post('/forget-password', payload)
-    .then(response => {
-      return response.data
-
-    }).catch(error => {
-      throw error.response.data
+export async function forgetPassword(payload = {email: null}) {
+  return await axios
+    .post("/forget-password", payload)
+    .then((response) => {
+      return response.data;
     })
-};
+    .catch((error) => {
+      throw error.response.data;
+    });
+}
 
 export async function updatePassword(payload = UPDATE_PASSWORD_PAYLOAD) {
-  return await axios.post(`/update-password/:_id/:token`, payload)
-    .then(response => {
-      return response.data
-
-    }).catch(error => {
-      throw error.response.data
+  return await axios
+    .post(`/update-password/:_id/:token`, payload)
+    .then((response) => {
+      return response.data;
     })
-};
+    .catch((error) => {
+      throw error.response.data;
+    });
+}
 
 export async function logout() {
-  return await axios.post('/logout')
-    .then(response => {
+  return await axios
+    .post("/logout")
+    .then((response) => {
       return response.data;
-
-    }).catch(error => {
-      throw error.response.data;
     })
+    .catch((error) => {
+      throw error.response.data;
+    });
 }
 
 export async function me(token = null) {
-  return await axios.get('/me', {
-    params: {
-      token: token
-    }
-  })
-    .then(response => {
-      return response.data
-
-    }).catch(error => {
-      throw error.response
+  return await axios
+    .get("/me", {
+      params: {
+        token: token,
+      },
     })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response;
+    });
 }

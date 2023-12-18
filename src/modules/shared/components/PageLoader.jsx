@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../../assets/css/page-loader.module.css?v1.0";
+import styles from "../../../assets/css/page-loader.module.css";
 
 const PageLoader = () => {
   return (

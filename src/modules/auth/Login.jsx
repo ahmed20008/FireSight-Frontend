@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import authLayout from "../../layout/AuthLayout";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
-import { signIn } from "../../api/AuthApi";
-import { useCookies } from 'react-cookie'; // Import useCookies hook
-import { toastrOnTopCenter } from "../../utils/toastr";
-import { updateCurrentUser } from "../../redux/actionCreators";
-import { connect } from "react-redux";
+import {signIn} from "../../api/AuthApi";
+import {useCookies} from "react-cookie";
+import {toastrOnTopCenter} from "../../utils/toastr";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -17,24 +15,22 @@ const Login = (props) => {
 
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState(initialValue);
-  const [cookies, setCookie] = useCookies(['auth_token']);
+  const [cookies, setCookie] = useCookies(["auth_token"]);
 
   const login = (e) => {
     e.preventDefault();
     setProcessing(true);
 
-    signIn({ ...credential })
+    signIn({...credential})
       .then((response) => {
-        const authUser = response.data.user;
-        const { auth_token, exp } = response.data;
-        setCookie('auth_token', auth_token);
-        props.updateCurrentUser(authUser);
+        const {auth_token} = response.data;
+        setCookie("auth_token", auth_token);
 
-        toastrOnTopCenter(response.message, "success")
-        navigate('/dashboard');
+        toastrOnTopCenter(response.message, "success");
+        navigate("/dashboard");
       })
       .catch((errors) => {
-        toastrOnTopCenter(errors.message, "error")
+        toastrOnTopCenter(errors.message, "error");
       })
       .finally(() => {
         setProcessing(false);
@@ -49,8 +45,8 @@ const Login = (props) => {
       </div>
       <form onSubmit={login}>
         <div className={styles.authContentForm}>
-          <input type="email" placeholder="Email" value={credential.email} onChange={(e) => setCredential({ ...credential, email: e.target.value })} required />
-          <input type="password" placeholder="Password" value={credential.password} onChange={(e) => setCredential({ ...credential, password: e.target.value })} required />
+          <input type="email" placeholder="Email" value={credential.email} onChange={(e) => setCredential({...credential, email: e.target.value})} required />
+          <input type="password" placeholder="Password" value={credential.password} onChange={(e) => setCredential({...credential, password: e.target.value})} required />
         </div>
         <div className={styles.authSubmitbutton}>
           <button type="submit">
@@ -60,16 +56,13 @@ const Login = (props) => {
         </div>
       </form>
       <p className={styles.loginForgotPassword}>
-        <Link to="/register" className="me-3">Create an Account?</Link>
+        <Link to="/register" className="me-3">
+          Create an Account?
+        </Link>
         <Link to="/reset-password">Forgot Password?</Link>
       </p>
     </>
   );
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateCurrentUser: (user) => dispatch(updateCurrentUser(user)),
-  };
-};
 
-export default connect(null, mapDispatchToProps)(authLayout(Login));
+export default authLayout(Login);

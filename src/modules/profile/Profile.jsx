@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import authenticatedLayout from '../../layout/AuthenticatedLayout';
+import React, {useState} from "react";
+import authenticatedLayout from "../../layout/AuthenticatedLayout";
 import HeadingHeader from "../../modules/shared/components/HeadingHeader";
-import { globalImages } from '../../utils/staticImages';
+import {globalImages} from "../../utils/staticImages";
 import styles from "../../assets/css/profile.module.css";
 import buttonStyles from "../../assets/css/buttons.module.css";
-import { useSelector } from "react-redux";
-import { getCurrentUser } from '../../redux/actionCreators';
+import {useSelector} from "react-redux";
+import {getCurrentUser} from "../../redux/selectors";
 
 const Profile = () => {
   const currentUser = useSelector((state) => getCurrentUser(state));
-  console.log(currentUser);
+  let capitalizedName = currentUser?.name?.charAt(0)?.toUpperCase() + currentUser?.name?.slice(1);
+  const userPermissions = currentUser?.permissions ?? [];
   const [processing, setProcessing] = useState(false);
 
   return (
@@ -18,17 +19,18 @@ const Profile = () => {
       <div className="d-flex justify-content-center">
         <div className={`card w-100 ${styles.profileCard}`}>
           <div className={styles.avatarImg}>
-            <img src={globalImages.avatar} className='img-fluid' alt="avatar" />
+            <img src={globalImages.avatar} className="img-fluid" alt="avatar" />
           </div>
           <div className={styles.profileInfo}>
+            <h2>{currentUser.verified === true ? "Verified" : "Unverified"}</h2>
             <h2>
-              Name: <span>John Doe</span>
+              Name: <span>{capitalizedName}</span>
             </h2>
             <h2>
-              Email: <span>test@gmail.com</span>
+              Email: <span>{currentUser?.email ?? ""}</span>
             </h2>
             <h2>
-              Role: <span>User</span>
+              Role: <span>{userPermissions.join(", ")}</span>
             </h2>
           </div>
           <button type="submit" className={`${buttonStyles.buttonBlackRounded} w-50 mt-4`}>
@@ -38,7 +40,7 @@ const Profile = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default authenticatedLayout(Profile);

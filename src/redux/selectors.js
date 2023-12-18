@@ -5,5 +5,5 @@ const storeClosure = (store) => store;
 export const getCurrentUser = createSelector(storeClosure, (store) => {
   return {
     ...store.authUser,
-  }
+  };
 });

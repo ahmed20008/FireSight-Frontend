@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
-import authenticatedLayout from '../../layout/AuthenticatedLayout';
+import React, {useState} from "react";
+import authenticatedLayout from "../../layout/AuthenticatedLayout";
 import HeadingHeader from "../../modules/shared/components/HeadingHeader";
 import styles from "../../assets/css/add-camera.module.css";
 import buttonStyles from "../../assets/css/buttons.module.css";
-import { addCamera } from '../../api/CameraApi';
-import { toastrOnTopCenter } from '../../utils/toastr';
+import {addCamera} from "../../api/CameraApi";
+import {toastrOnTopCenter} from "../../utils/toastr";
+import {useCookies} from "react-cookie";
 
 const AddCamera = () => {
+  const [cookies] = useCookies(["auth_token"]);
+  const [token, setToken] = useState(cookies?.auth_token);
+
   const initialData = {
-    name: '',
-    location: '',
-    link: '',
-    view: '',
-    description: '',
-  }
+    name: "",
+    location: "",
+    link: "",
+    view: "",
+    description: "",
+    token: token,
+  };
   const [formData, setFormData] = useState(initialData);
   const [processing, setProcessing] = useState(false);
 
@@ -21,7 +26,7 @@ const AddCamera = () => {
     e.preventDefault();
     setProcessing(true);
 
-    addCamera({ ...formData })
+    addCamera({...formData})
       .then((response) => {
         toastrOnTopCenter(response.message, "success");
         setFormData(initialData);
@@ -32,7 +37,7 @@ const AddCamera = () => {
       .finally(() => {
         setProcessing(false);
       });
-  }
+  };
 
   return (
     <>
@@ -42,25 +47,25 @@ const AddCamera = () => {
         <form onSubmit={handleCameraInfo}>
           <div className="form-group mb-3">
             <label htmlFor="camera-name">Camera Name:</label>
-            <input required type="text" className="form-control" id="camera-name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Enter Camera Name" />
+            <input required type="text" className="form-control" id="camera-name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="Enter Camera Name" />
           </div>
           <div className="form-group mb-3">
             <label htmlFor="camera-location">Camera Location:</label>
-            <input required type="text" className="form-control" id="camera-location" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} placeholder="Enter Location" />
+            <input required type="text" className="form-control" id="camera-location" value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} placeholder="Enter Location" />
           </div>
           <div className="form-group mb-3">
             <label htmlFor="camera-rtsp">Camera RTSP Link:</label>
-            <input required type="text" className="form-control" id="camera-rtsp" value={formData.link} onChange={(e) => setFormData({ ...formData, link: e.target.value })} placeholder="Enter RTSP Link" />
+            <input required type="text" className="form-control" id="camera-rtsp" value={formData.link} onChange={(e) => setFormData({...formData, link: e.target.value})} placeholder="Enter RTSP Link" />
           </div>
           <div className="form-group mb-3">
             <label htmlFor="camera-field-of-view">Field of View:</label>
-            <input required type="text" className="form-control" id="camera-field-of-view" value={formData.view} onChange={(e) => setFormData({ ...formData, view: e.target.value })} placeholder="Enter Field of View" />
+            <input required type="text" className="form-control" id="camera-field-of-view" value={formData.view} onChange={(e) => setFormData({...formData, view: e.target.value})} placeholder="Enter Field of View" />
           </div>
           <div className="form-group mb-3">
             <label htmlFor="camera-description">Description:</label>
-            <textarea required className='form-control' id="camera-description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Enter Description" rows="4"></textarea>
+            <textarea required className="form-control" id="camera-description" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} placeholder="Enter Description" rows="4"></textarea>
           </div>
-          <div className='text-start'>
+          <div className="text-start">
             <button type="submit" className={`${buttonStyles.buttonBlackRounded} w-25`}>
               {processing && <i className="fa fa-spinner fa-spin"></i>}
               {!processing && "Submit"}
@@ -69,7 +74,7 @@ const AddCamera = () => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default authenticatedLayout(AddCamera);

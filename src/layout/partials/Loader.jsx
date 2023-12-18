@@ -1,7 +1,11 @@
-import styles from "../assets/css/loader.module.css?v1.0";
+import styles from "../../assets/css/loader.module.css";
 
 const Loader = () => {
-  return <span className={styles.rumorLoader}></span>;
+  return (
+    <div className={styles.loaderContainer}>
+      <span className={styles.rumorLoader}></span>
+    </div>
+  );
 };
 
 export default Loader;

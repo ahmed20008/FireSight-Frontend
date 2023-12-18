@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import Navbar from "./partials/Navbar";
 import Sidebar from "./partials/Sidebar";
 import Header from "./partials/Header";
 import Footer from "./partials/Footer";
 import styles from "../assets/css/authenticated-layout.module.css";
-import { me } from "../api/AuthApi";
-import { useCookies } from 'react-cookie';
-import { updateCurrentUser } from "../redux/actionCreators";
-import { useDispatch } from "react-redux";
+import {me} from "../api/AuthApi";
+import {useCookies} from "react-cookie";
+import {updateCurrentUser} from "../redux/actionCreators";
+import {useDispatch} from "react-redux";
 
 function authenticatedLayout(WrappedComponent) {
   return function AuthenticatedLayout(props) {
     const dispatch = useDispatch();
+
     const [sidebarPinned, setSidebarPinned] = useState(true);
-    const [cookies] = useCookies(['auth_token']);
-    const [token, setToken] = useState(cookies?.auth_token)
+    const [cookies] = useCookies(["auth_token"]);
+    const [token, setToken] = useState(cookies?.auth_token);
 
     useEffect(() => {
       refreshCurrenUserInfo();
@@ -34,7 +35,6 @@ function authenticatedLayout(WrappedComponent) {
           console.error(error);
         });
     };
-
 
     return (
       <>
