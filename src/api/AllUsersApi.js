@@ -4,7 +4,7 @@ export async function allUsers() {
   return await axios
     .get("/all-users", {
       params: {
-        verified: false,
+        verified: true,
       },
     })
     .then((response) => {

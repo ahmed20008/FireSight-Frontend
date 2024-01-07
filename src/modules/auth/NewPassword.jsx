@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import authLayout from "../../layout/AuthLayout";
 import styles from "../../assets/css/auth-pages.module.css?v1.0";
 import { toastrOnTopCenter } from "../../utils/toastr";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { updatePassword } from "../../api/AuthApi";
 
 const NewPassword = () => {
@@ -10,12 +10,7 @@ const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [processing, setProcessing] = useState(false);
-
-  const updatePasswordData = {
-    password: password,
-    id: id,
-    token: resetToken,
-  };
+  const navigate = useNavigate();
 
   const resetPassword = (event) => {
     event.preventDefault();
@@ -27,9 +22,10 @@ const NewPassword = () => {
       return;
     }
     else {
-      updatePassword({ ...updatePasswordData })
+      updatePassword(id, resetToken, { password })
         .then((response) => {
           toastrOnTopCenter(response.message, "success");
+          navigate("/")
         })
         .catch((errors) => {
           toastrOnTopCenter(errors.message, "error");

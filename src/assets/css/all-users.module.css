@@ -1,18 +1,5 @@
-.allUserTable {
-  margin-top: 1rem;
-}
-
-.allUserTable th {
-  background-color: #b5bfa6;
-  color: #1d1c1c;
-  font-family: FTR;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  padding: 10px 10px 10px 26px;
-}
-
 .paginationButton {
+  margin-top: 1rem;
   background-color: black !important;
   border-color: black !important;
 }
@@ -23,10 +10,104 @@
   margin-right: 14px;
 }
 
-.allUserTable td {
-  padding: 14px 10px 14px 26px;
-  font-size: 16px;
+.teamTableContainer {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.teamTable table thead th {
+  background-color: #b5bfa6;
+  color: #1d1c1c;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: FTR;
+}
+
+.teamTable {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 75vh;
+}
+
+.teamTable table {
+  margin-bottom: 0;
+}
+
+.teamTable::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.teamTable::-webkit-scrollbar-track {
+  background: none;
+}
+
+.teamTable::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #a8a8a8;
+}
+
+.teamTable::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.teamTable table tbody td {
   color: #000;
   font-size: 18px;
+  font-weight: 400;
   font-family: FTR;
+}
+
+.teamTable table thead th {
+  padding: 11px 29px;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+.teamTable table tbody td {
+  white-space: nowrap;
+  padding: 14px 29px;
+}
+
+.emptyGuestlist {
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+  color: #000;
+  font-family: FTR;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .removeBtn a:hover {
+    color: #686868;
+  }
+}
+
+@media (max-width: 575px) {
+  .TeamdropdownMenu {
+    width: 250px;
+  }
+}
+
+@media screen and (min-width: 581px) and (max-width: 940px) {
+  .emptyGuestlist {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .emptyGuestlist {
+    font-size: 18px;
+    font-weight: 600;
+  }
 }

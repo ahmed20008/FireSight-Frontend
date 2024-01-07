@@ -54,9 +54,9 @@ export async function forgetPassword(payload = {email: null}) {
     });
 }
 
-export async function updatePassword(payload = UPDATE_PASSWORD_PAYLOAD) {
+export async function updatePassword(_id, token, payload = UPDATE_PASSWORD_PAYLOAD) {
   return await axios
-    .post(`/update-password/:_id/:token`, payload)
+    .post(`/update-password/${_id}/${token}`, payload)
     .then((response) => {
       return response.data;
     })
