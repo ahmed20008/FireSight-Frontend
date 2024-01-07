@@ -1,12 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import authenticatedLayout from "../../layout/AuthenticatedLayout";
 import HeadingHeader from "../shared/components/HeadingHeader";
-import {IconTrash} from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import styles from "../../assets/css/all-users.module.css";
-import {allUsers, deleteUsers} from "../../api/AllUsersApi";
-import {toastrOnTopCenter} from "../../utils/toastr";
-import {globalImages} from "../../utils/staticImages";
+import { allUsers, deleteUsers } from "../../api/AllUsersApi";
+import { toastrOnTopCenter } from "../../utils/toastr";
+import { globalImages } from "../../utils/staticImages";
 import Loader from "../../layout/partials/Loader";
+import Swal from 'sweetalert2';
 
 const AllUsers = () => {
   const [allUsersData, setAllUsersData] = useState([]);
@@ -36,14 +37,31 @@ const AllUsers = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleDeleteUser = (userId) => {
-    deleteUsers(userId)
-      .then((response) => {
-        toastrOnTopCenter(response.message, "success");
-        fetchAllUsers();
-      })
-      .catch((errors) => {
-        toastrOnTopCenter("Error deleting user. Retry again later!", "error");
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      deleteUsers(userId)
+        .then((response) => {
+          toastrOnTopCenter(response.message, "success");
+          fetchAllUsers();
+        })
+        .catch((errors) => {
+          toastrOnTopCenter("Error deleting user. Retry again later!", "error");
+        });
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
   };
 
   return (
@@ -86,7 +104,7 @@ const AllUsers = () => {
           </div>
           <nav>
             <ul className="pagination">
-              {Array.from({length: Math.ceil(allUsersData.length / usersPerPage)}, (_, index) => (
+              {Array.from({ length: Math.ceil(allUsersData.length / usersPerPage) }, (_, index) => (
                 <li key={index + 1} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
                   <button onClick={() => paginate(index + 1)} className={`page-link ${styles.paginationButton}`}>
                     {index + 1}

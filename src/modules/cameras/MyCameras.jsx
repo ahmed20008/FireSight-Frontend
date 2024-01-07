@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import authenticatedLayout from "../../layout/AuthenticatedLayout";
 import HeadingHeader from "../shared/components/HeadingHeader";
-import {cameraImg} from "../../utils/staticImages";
+import { cameraImg } from "../../utils/staticImages";
 import styles from "../../assets/css/camera-page.module.css";
-import {myCameras, deleteCamera} from "../../api/CameraApi";
-import {toastrOnTopCenter} from "../../utils/toastr";
+import { myCameras, deleteCamera } from "../../api/CameraApi";
+import { toastrOnTopCenter } from "../../utils/toastr";
 import buttonStyles from "../../assets/css/buttons.module.css";
-import {useSelector} from "react-redux";
-import {getCurrentUser} from "../../redux/selectors";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../redux/selectors";
 import Loader from "../../layout/partials/Loader";
+import Swal from 'sweetalert2';
 
 const MyCameras = () => {
   const currentUser = useSelector((state) => getCurrentUser(state));
@@ -44,14 +45,31 @@ const MyCameras = () => {
   const handleDeleteClick = (cameraId) => {
     setCameraToDelete(cameraId);
 
-    deleteCamera(cameraToDelete)
-      .then((response) => {
-        toastrOnTopCenter(response.message, "success");
-        fetchMyCameras(myId);
-      })
-      .catch((errors) => {
-        toastrOnTopCenter(errors.message, "error");
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      deleteCamera(cameraToDelete)
+        .then((response) => {
+          toastrOnTopCenter(response.message, "success");
+          fetchMyCameras(myId);
+        })
+        .catch((errors) => {
+          toastrOnTopCenter(errors.message, "error");
+        });
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
   };
 
   return (
@@ -61,7 +79,7 @@ const MyCameras = () => {
         <Loader />
       ) : (
         <div className="d-flex flex-row align-items-center flex-wrap gap-3">
-          {cameraInfo.length === 0 ? (
+          {cameraInfo?.length === 0 ? (
             <div className="alert alert-warning w-100" role="alert">
               No cameras found. You can add cameras using the provided options.
             </div>

@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import authenticatedLayout from "../../layout/AuthenticatedLayout";
 import HeadingHeader from "../shared/components/HeadingHeader";
-import {cameraImg} from "../../utils/staticImages";
+import { cameraImg } from "../../utils/staticImages";
 import styles from "../../assets/css/camera-page.module.css";
-import {allCameras, deleteCamera} from "../../api/CameraApi";
-import {toastrOnTopCenter} from "../../utils/toastr";
+import { allCameras, deleteCamera } from "../../api/CameraApi";
+import { toastrOnTopCenter } from "../../utils/toastr";
 import buttonStyles from "../../assets/css/buttons.module.css";
 import Loader from "../../layout/partials/Loader";
 
@@ -47,33 +47,43 @@ const Cameras = () => {
         <Loader />
       ) : (
         <div className="d-flex flex-row align-items-center flex-wrap gap-3">
-          {cameraInfo.map((camera, index) => (
-            <div key={index}>
-              <div className={`card ${styles.camerasCard}`}>
-                <div className="text-center">
-                  <img className="img-fluid" width={80} height={80} src={cameraImg.camera} alt="camera-img" />
-                </div>
-                <h2>{camera.name}</h2>
-                <p>
-                  <b>Location:</b> {camera.location}
-                </p>
-                <p>
-                  <b>Camera RTSP:</b> {camera.link}
-                </p>
-                <p>
-                  <b>Field of View:</b> {camera.view}
-                </p>
-                <p>
-                  <b>Description:</b> {camera.description}
-                </p>
-                <div className="my-3">
-                  <button className={buttonStyles.buttonBlackRounded} onClick={() => handleDeleteClick(camera._id)}>
-                    Delete
-                  </button>
-                </div>
-              </div>
+          {cameraInfo?.length === 0 ? (
+            <div className="alert alert-warning w-100" role="alert">
+              There are not any cameras to display.
             </div>
-          ))}
+          ) : (
+            <>
+              {
+                cameraInfo.map((camera, index) => (
+                  <div key={index}>
+                    <div className={`card ${styles.camerasCard}`}>
+                      <div className="text-center">
+                        <img className="img-fluid" width={80} height={80} src={cameraImg.camera} alt="camera-img" />
+                      </div>
+                      <h2>{camera.name}</h2>
+                      <p>
+                        <b>Location:</b> {camera.location}
+                      </p>
+                      <p>
+                        <b>Camera RTSP:</b> {camera.link}
+                      </p>
+                      <p>
+                        <b>Field of View:</b> {camera.view}
+                      </p>
+                      <p>
+                        <b>Description:</b> {camera.description}
+                      </p>
+                      <div className="my-3">
+                        <button className={buttonStyles.buttonBlackRounded} onClick={() => handleDeleteClick(camera._id)}>
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </>
+          )}
         </div>
       )}
     </>

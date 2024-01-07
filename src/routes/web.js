@@ -17,7 +17,8 @@ const AllUsers = lazy(() => import("../modules/all-users/AllUsers"));
 const AllRequest = lazy(() => import("../modules/all-request/AllRequest"));
 const UpgradeToPro = lazy(() => import("../modules/upgrade/UpgradeToPro"));
 const Error404 = lazy(() => import("../modules/shared/components/Error404"));
-const Thankyou = lazy(() => import("../modules/auth/Thankyou"))
+const Thankyou = lazy(() => import("../modules/auth/Thankyou"));
+const Notification = lazy(() => import("../modules/notification/Notification"));
 
 const ProtectedRoute = ({component}) => {
   const [cookies] = useCookies(["auth_token"]);
@@ -53,6 +54,10 @@ export const routes = [
   {
     path: "/dashboard",
     element: <ProtectedRoute component={<Dashboard />} />,
+  },
+  {
+    path: "/notification",
+    element: <ProtectedRoute component={<Notification />} />,
   },
   {
     path: "/cameras",

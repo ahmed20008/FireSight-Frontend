@@ -4,10 +4,12 @@ import {globalImages} from "../../utils/staticImages";
 import {IconBell} from "@tabler/icons-react";
 import {useSelector} from "react-redux";
 import {getCurrentUser} from "../../redux/selectors";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({sidebarPinned, updateSidebarState}) => {
   const currentUser = useSelector((state) => getCurrentUser(state));
   let capitalizedName = currentUser?.name?.charAt(0)?.toUpperCase() + currentUser?.name?.slice(1);
+  const navigate = useNavigate();
 
   return (
     <div className={styles.header}>
@@ -20,7 +22,7 @@ const Navbar = ({sidebarPinned, updateSidebarState}) => {
       </button>
       <div className={styles.searchbarContainer}></div>
       <span className={styles.notificaion}>
-        <button>
+        <button onClick={() => navigate("/notification")}>
           <IconBell width={20} height={20} />
         </button>
       </span>
