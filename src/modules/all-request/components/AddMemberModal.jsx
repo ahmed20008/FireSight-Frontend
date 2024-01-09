@@ -15,6 +15,7 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
       state: "",
       zipcode: "",
     },
+    permissions: "",
   };
   const modalContainerRef = useRef(null);
   const modalElementRef = useRef(null);
@@ -27,13 +28,29 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
     document.body.style.overflow = "hidden";
     document.body.style.paddingRight = "8px";
 
+    if (selectedMember) {
+      setAddMember((prev) => ({
+        ...prev,
+        name: selectedMember.name || "",
+        phone: selectedMember.phone || "",
+        email: selectedMember.email || "",
+        address: {
+          address: selectedMember.address?.address || "",
+          city: selectedMember.address?.city || "",
+          state: selectedMember.address?.state || "",
+          zipcode: selectedMember.address?.zipcode || "",
+        },
+        permissions: selectedMember.permissions || "",
+      }));
+    }
+
     return () => {
       clearTimeout();
       document.body.classList.remove("modal-open");
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
     };
-  }, []);
+  }, [selectedMember]);
 
   const handleModalClose = useCallback(() => {
     setHideModal(false);
@@ -64,7 +81,7 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
     };
   }, [handleClickOutsideModal]);
 
-
+  console.log(addMember)
   return (
     <>
       <div ref={modalContainerRef} className={`modal ${!hideModal ? animations.fadeOut : animations.fadeIn}`} id="inviteTeamModal" tabIndex="-1" aria-labelledby="inviteTeamModalLabel" style={{ display: "block" }} aria-hidden="true">
@@ -196,10 +213,22 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                   />
                 </div>
                 <div className={`mb-3 ${styles.modalField}`}>
+                  <label htmlFor="member-role" className="form-label px-1">
+                    Role
+                  </label>
+                  <select className='form-select' value={addMember.permissions} onChange={(e) => setAddMember({ ...addMember, permissions: e.target.value })} id="member-role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="fire_dept">Fire department</option>
+                  </select>
+                </div>
+              </div>
+              <div className={styles.modalBodyContainer}>
+                <div className={`mb-3 ${styles.modalField}`}>
                   <label htmlFor="team-role" className="form-label px-1">
                     Fire Dpt Address
                   </label>
-                  <select name="" id="">
+                  <select className='form-select' name="" id="">
                     <option value="1">1</option>
                     <option value="1">1</option>
                     <option value="1">1</option>

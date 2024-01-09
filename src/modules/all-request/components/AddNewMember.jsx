@@ -200,7 +200,7 @@ const AddNewMemberModal = ({ closeModal }) => {
                   <label htmlFor="team-role" className="form-label px-1">
                     Fire Dpt Address
                   </label>
-                  <select name="" id="">
+                  <select className='form-select' name="" id="">
                     <option value="1">1</option>
                     <option value="1">1</option>
                     <option value="1">1</option>
