@@ -1,0 +1,301 @@
+.modalBodyScroll::-webkit-scrollbar {
+  width: 5px;
+}
+.modalBodyScroll::-webkit-scrollbar-track {
+  background: none;
+}
+.modalBodyScroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #a8a8a8;
+}
+.modalBodyScroll::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+.modalBodyScroll {
+  padding: 0px 30px;
+}
+.teamModalHeader {
+  padding: 37px 30px 25px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.teamModalHeader > h1 {
+  color: #000;
+  font-family: FTR;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-height: 26px;
+}
+.teamModalHeader > p {
+  color: #000;
+  font-family: FTR;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 0px;
+  line-height: 12px;
+}
+.teamModalHeader > hr {
+  width: 100%;
+}
+.inviteTeamText p {
+  padding-top: 0.8rem;
+  font-size: 12px;
+  font-weight: 400;
+}
+.modalHeaderDivider {
+  max-width: 100%;
+}
+.modalField {
+  flex: 1;
+}
+.modalField > label {
+  color: #000;
+  font-size: 16px;
+  font-family: FTR;
+}
+.modalField > input {
+  background-color: white;
+  font-size: 16px;
+  padding: 10px 18px;
+  width: 100%;
+  color: #000;
+  border-radius: 50px;
+  border: 1px solid #a4a2a2;
+  font-family: FTR;
+  font-style: normal;
+  font-weight: 400;
+}
+.modalField > input[type="number"] {
+  font-family: "Almarena-Regular";
+}
+
+.modalField > select {
+  background-color: white;
+  font-size: 16px;
+  padding: 10px 18px;
+  width: 100%;
+  color: #000;
+  border-radius: 50px;
+  border: 1px solid #a4a2a2;
+  font-family: FTR;
+  font-style: normal;
+  font-weight: 400;
+}
+.modalField > input::placeholder {
+  color: #000;
+  font-family: FTR;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+.modalField > input[type="number"]::placeholder {
+  font-family: "Almarena-Regular";
+}
+
+.modalBodyContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.modalFooterContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 50px 0px;
+  padding-top: 34px;
+  gap: 15px;
+}
+
+.modalFooterContainer > button {
+  width: 150px;
+  margin: 0;
+}
+
+.dropdownInput {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  height: 46px;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: 1px solid #a4a2a2;
+  gap: 5px;
+  overflow: hidden;
+}
+.dropdownInput > input {
+  border: none;
+  padding: 0px;
+  background-color: white;
+  font-size: 16px;
+  color: #000;
+  font-family: FTR;
+  width: 90%;
+  cursor: default;
+}
+.dropdownInput svg path {
+  fill: #888888;
+}
+.dropdownInput > input:focus {
+  outline: none;
+}
+
+.dropdownInput > svg {
+  transform: rotate(180deg);
+}
+.dropdownContainer > div::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.dropdownContainer > div::-webkit-scrollbar-track {
+  background: none;
+}
+.dropdownContainer > div::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #a8a8a8;
+}
+.dropdownContainer > div::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+.dropdownContainer[data-popper-placement="bottom-start"] {
+  margin-top: -53px !important;
+}
+.dropdownContainer[data-popper-placement="top-start"] {
+  margin-bottom: -53px !important;
+}
+.dropdownContainer {
+  overflow: hidden;
+  padding: 8px 0px;
+  border-radius: 25px;
+  box-shadow: 0px 10px 50px 0px rgba(139, 139, 139, 0.1);
+  border: none;
+  min-width: 100%;
+  width: 100%;
+  border: 1px solid #a4a2a2;
+}
+
+.dropdownContainer > div {
+  max-height: 140px;
+  overflow-y: auto;
+}
+.dropdownContainer li {
+  cursor: default;
+  font-family: Almarena-Regular;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px 18px;
+}
+.dropdownContainer li:not(:last-of-type) {
+  margin-bottom: 5px;
+}
+
+.hoverDropdownCotainer {
+  position: relative;
+  margin-top: 5px;
+}
+.hoverDropdownCotainer > div:first-of-type {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: fit-content;
+}
+.hoverDropdownCotainer > div:first-of-type p {
+  cursor: default;
+}
+.hoverDropdownContent {
+  display: none;
+  position: absolute;
+  top: 25px;
+  background-color: white;
+  padding: 14px 16px;
+  max-width: 220px;
+  z-index: 1;
+  border-radius: 5px;
+  border: 1px solid #a4a2a2;
+  box-shadow: 0px 4px 30px 0px rgba(159, 159, 159, 0.25);
+}
+.hoverDropdownContent h3 {
+  color: #000;
+  font-family: FTR;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  margin: 0;
+  line-height: normal;
+}
+.hoverDropdownContent p {
+  color: #000;
+  font-family: FTR;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+  line-height: normal;
+}
+.hoverDropdownCotainer > div:hover + .hoverDropdownContent {
+  display: block;
+}
+.roleTooltip {
+  color: #1d1c1c;
+  font-family: "FTR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dropdownContainer li:hover {
+    background-color: #dee2e642;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .teamModal {
+    max-width: 550px !important;
+  }
+}
+
+@media screen and (max-width: 497px) {
+  .modalField {
+    width: 100%;
+  }
+  .modalField > input {
+    width: 100%;
+  }
+  .modalField > select {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .modalBodyContainer {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .modalFooterContainer {
+    justify-content: space-between;
+  }
+  .modalFooterContainer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .modalFooterContainer button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .modalFooterContainer > button {
+    width: 100%;
+  }
+}

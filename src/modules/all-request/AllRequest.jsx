@@ -8,9 +8,14 @@ import { allRequests, deleteUsers } from "../../api/AllUsersApi";
 import { toastrOnTopCenter } from "../../utils/toastr";
 import Swal from 'sweetalert2';
 import Loader from "../../layout/partials/Loader";
+import AddMemberModal from "./components/AddMemberModal";
+import AddNewMemberModal from "./components/AddNewMember";
 
 const AllRequest = () => {
   const [allUsersRequests, setAllUsersRequests] = useState([]);
+  const [selectedMember, setSelectedMember] = useState([]);
+  const [showMemberModal, setShowMemberModal] = useState(false);
+  const [showNewMemberModal, setShowNewMemberModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -64,7 +69,7 @@ const AllRequest = () => {
       ) : (
         <>
           <div className="d-flex flex-row justify-content-end">
-            <button className={buttonStyles.buttonBlackRounded} style={{ width: "200px" }}>
+            <button className={buttonStyles.buttonBlackRounded} onClick={() => setShowNewMemberModal(true)} style={{ width: "200px" }}>
               Add New Member
             </button>
           </div>
@@ -95,7 +100,13 @@ const AllRequest = () => {
                         </div>
                         <div className={`col-md-4 text-end ${styles.requestbutton}`}>
                           <div>
-                            <button className={buttonStyles.buttonBlackRounded} style={{ width: "150px" }}>
+                            <button
+                              className={buttonStyles.buttonBlackRounded}
+                              onClick={() => {
+                                setShowMemberModal(true)
+                                setSelectedMember(requests)
+                              }}
+                              style={{ width: "150px" }}>
                               Add Member
                             </button>
                           </div>
@@ -114,6 +125,8 @@ const AllRequest = () => {
           </div>
         </>
       )}
+      {showMemberModal && <AddMemberModal selectedMember={selectedMember} closeModal={() => setShowMemberModal(false)} />}
+      {showNewMemberModal && <AddNewMemberModal closeModal={() => setShowNewMemberModal(false)} />}
     </>
   );
 };
