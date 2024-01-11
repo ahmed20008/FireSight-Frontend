@@ -90,7 +90,7 @@ const Regsiter = () => {
                 placeholder="City"
                 value={signupData.address.city}
                 onChange={(e) => {
-                  const sanitizedValue = e.target.value.replace(/[^a-zA-Z]/g, ''); // Allow only alphabets
+                  const sanitizedValue = e.target.value.replace(/[^a-zA-Z]/g, '');
                   setSignupData({ ...signupData, address: { ...signupData.address, city: sanitizedValue } });
                 }}
                 title="Please enter only alphabets"
@@ -107,7 +107,7 @@ const Regsiter = () => {
                 placeholder="State"
                 value={signupData.address.state}
                 onChange={(e) => {
-                  const sanitizedValue = e.target.value.replace(/[^a-zA-Z]/g, ''); // Allow only alphabets
+                  const sanitizedValue = e.target.value.replace(/[^a-zA-Z]/g, '');
                   setSignupData({ ...signupData, address: { ...signupData.address, state: sanitizedValue } });
                 }}
                 title="Please enter only alphabets"
@@ -129,6 +129,7 @@ const Regsiter = () => {
                 }}
                 required
                 maxLength={5}
+                title="Please enter only digits"
               />
             </div>
           </div>

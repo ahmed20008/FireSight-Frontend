@@ -28,7 +28,7 @@
 .teamTable {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 75vh;
+  max-height: 95vh;
 }
 
 .teamTable table {

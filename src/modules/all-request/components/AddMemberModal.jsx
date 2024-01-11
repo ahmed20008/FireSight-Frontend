@@ -3,12 +3,14 @@ import styles from "../../../assets/css/add-member-modal.module.css";
 import animations from "../../../assets/css/animations.module.css";
 import { useEffect, useState, useRef, useCallback } from "react";
 import buttonStyles from "../../../assets/css/buttons.module.css";
+import { addNewMember, updateMember } from '../../../api/AddMemberApi';
+import { toastrOnTopCenter } from '../../../utils/toastr';
 
-const AddMemberModal = ({ closeModal, selectedMember }) => {
+const AddMemberModal = ({ closeModal, selectedMember, allVerifiedUser }) => {
   const intialValue = {
     name: "",
-    phone: "",
     email: "",
+    phone: "",
     address: {
       address: "",
       city: "",
@@ -16,12 +18,15 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
       zipcode: "",
     },
     permissions: "",
+    verified: "true",
+    fire_dept_id: "",
   };
   const modalContainerRef = useRef(null);
   const modalElementRef = useRef(null);
   const [hideModal, setHideModal] = useState(true);
   const [addMember, setAddMember] = useState(intialValue);
   const [processing, setProcessing] = useState(false);
+  const [fireDeptAddresses, setFireDeptAddresses] = useState(allVerifiedUser?.filter((user) => user?.permissions === "fire_dept"));
 
   useEffect(() => {
     document.body.classList.add("modal-open");
@@ -81,12 +86,26 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
     };
   }, [handleClickOutsideModal]);
 
-  console.log(addMember)
+  // Add Member API call
+  const VerifyMember = (e) => {
+    e.preventDefault();
+    setProcessing(true);
+    updateMember(selectedMember._id, addMember)
+      .then((response) => {
+        toastrOnTopCenter(response.message, "success");
+        handleModalClose();
+      })
+      .catch((errors) => {
+        toastrOnTopCenter(errors.message, "error");
+      })
+      .finally(() => setProcessing(false));
+  };
+
   return (
     <>
       <div ref={modalContainerRef} className={`modal ${!hideModal ? animations.fadeOut : animations.fadeIn}`} id="inviteTeamModal" tabIndex="-1" aria-labelledby="inviteTeamModalLabel" style={{ display: "block" }} aria-hidden="true">
         <div className={`modal-dialog modal-dialog-scrollable ${!hideModal ? animations.slideOut : animations.slideIn} ${styles.teamModal}`}>
-          <form ref={modalElementRef} className="modal-content">
+          <form onSubmit={VerifyMember} ref={modalElementRef} className="modal-content">
             <div className={`modal-header border-0 pb-0 ${styles.teamModalHeader}`}>
               <h1 className="modal-title" id="inviteTeamModalLabel">
                 Add a Member
@@ -106,6 +125,7 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                     value={addMember.name}
                     onChange={(e) => setAddMember({ ...addMember, name: e.target.value })}
                     placeholder="Name"
+                    required
                   />
                 </div>
                 <div className={`mb-3 custom-phone-number-input addTeamField ${styles.modalField}`}>
@@ -119,6 +139,7 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                     value={addMember.email}
                     onChange={(e) => setAddMember({ ...addMember, email: e.target.value })}
                     placeholder='Email'
+                    required
                   />
                 </div>
               </div>
@@ -139,6 +160,7 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                       })
                     }
                     placeholder="Address"
+                    required
                   />
                 </div>
                 <div className={`mb-3 custom-phone-number-input addTeamField ${styles.modalField}`}>
@@ -150,13 +172,13 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                     className='form-control'
                     id='member-city'
                     value={addMember.address.city}
-                    onChange={(e) =>
-                      setAddMember({
-                        ...addMember,
-                        address: { ...addMember.address, city: e.target.value },
-                      })
-                    }
+                    onChange={(e) => {
+                      const sanitizedValue = e.target.value.replace(/[^a-zA-Z]/g, '');
+                      setAddMember({ ...addMember, address: { ...addMember.address, city: sanitizedValue } })
+                    }}
                     placeholder='City'
+                    title="Please enter only alphabets"
+                    required
                   />
                 </div>
               </div>
@@ -170,13 +192,13 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                     className={`form-control`}
                     id="member-state"
                     value={addMember.address.state}
-                    onChange={(e) =>
-                      setAddMember({
-                        ...addMember,
-                        address: { ...addMember.address, state: e.target.value },
-                      })
-                    }
+                    onChange={(e) => {
+                      const sanitizedValue = e.target.value.replace(/[^a-zA-Z]/g, '');
+                      setAddMember({ ...addMember, address: { ...addMember.address, state: sanitizedValue } })
+                    }}
                     placeholder="State"
+                    title="Please enter only alphabets"
+                    required
                   />
                 </div>
                 <div className={`mb-3 custom-phone-number-input addTeamField ${styles.modalField}`}>
@@ -188,13 +210,13 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                     className={`form-control`}
                     id="member-zipcode"
                     value={addMember.address.state}
-                    onChange={(e) =>
-                      setAddMember({
-                        ...addMember,
-                        address: { ...addMember.address, zipcode: e.target.value },
-                      })
-                    }
+                    onChange={(e) => {
+                      const sanitizedValue = e.target.value.replace(/[^0-9]/g, '');
+                      setAddMember({ ...addMember, address: { ...addMember.address, zipcode: sanitizedValue } })
+                    }}
                     placeholder="Zipcode"
+                    maxLength={5}
+                    required
                   />
                 </div>
               </div>
@@ -208,40 +230,63 @@ const AddMemberModal = ({ closeModal, selectedMember }) => {
                     className={`form-control`}
                     id="member-phone"
                     value={addMember.phone}
-                    onChange={(e) => setAddMember({ ...addMember, phone: e.target.value })}
-                    placeholder="Phone"
+                    onChange={(e) => {
+                      const sanitizedValue = e.target.value.replace(/[^0-9]/g, '');
+                      setAddMember({ ...addMember, phone: sanitizedValue })
+                    }}
+                    placeholder="Phone (0000000000)"
+                    title="Please enter only digits"
+                    maxLength={12}
+                    required
                   />
                 </div>
                 <div className={`mb-3 ${styles.modalField}`}>
                   <label htmlFor="member-role" className="form-label px-1">
                     Role
                   </label>
-                  <select className='form-select' value={addMember.permissions} onChange={(e) => setAddMember({ ...addMember, permissions: e.target.value })} id="member-role">
+                  <select
+                    className='form-select'
+                    value={addMember.permissions}
+                    onChange={(e) => setAddMember({ ...addMember, permissions: e.target.value })}
+                    id="member-role"
+                    required
+                  >
+                    <option value="">Select Permission</option>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                     <option value="fire_dept">Fire department</option>
                   </select>
                 </div>
               </div>
-              <div className={styles.modalBodyContainer}>
-                <div className={`mb-3 ${styles.modalField}`}>
-                  <label htmlFor="team-role" className="form-label px-1">
-                    Fire Dpt Address
-                  </label>
-                  <select className='form-select' name="" id="">
-                    <option value="1">1</option>
-                    <option value="1">1</option>
-                    <option value="1">1</option>
-                    <option value="1">1</option>
-                  </select>
-                </div>
-              </div>
+              {!(addMember.permissions === "fire_dept") && (
+                <div className={styles.modalBodyContainer}>
+                  <div className={`mb-3 ${styles.modalField}`}>
+                    <label htmlFor="team-role" className="form-label px-1">
+                      Fire Dpt Address
+                    </label>
+                    <select
+                      className='form-select'
+                      value={addMember.fire_dept_id}
+                      onChange={(e) => setAddMember({ ...addMember, fire_dept_id: e.target.value })}
+                      id="fire-dept-address"
+                      required
+                    >
+                      <option value="">Select Address</option>
+                      {fireDeptAddresses.map((address, index) => (
+                        <option key={index} value={address._id}>
+                          {address.address.address}, {address.address.city}, {address.address.state} {address.address.zipcode}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>)}
               <div className={` ${styles.modalFooterContainer}`}>
                 <button disabled={processing ? true : false} type="button" onClick={handleModalClose} className={buttonStyles.buttonWhiteRounded}>
                   Cancel
                 </button>
                 <button disabled={processing ? true : false} type="submit" className={buttonStyles.buttonBlackRounded}>
-                  Add Member
+                  {processing && <i className="fa fa-spinner fa-spin"></i>}
+                  {!processing && "Add Member"}
                 </button>
               </div>
             </div>

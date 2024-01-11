@@ -79,6 +79,8 @@ const AllUsers = () => {
                     <th scope="col">No </th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Phone no</th>
                     <th scope="col">Address</th>
                     <th>Delete</th>
                   </tr>
@@ -92,6 +94,8 @@ const AllUsers = () => {
                         {user?.name ?? ""}
                       </td>
                       <td>{user?.email ?? ""}</td>
+                      <td>{user.permissions}</td>
+                      <td>{user.phone}</td>
                       <td>{user?.address ? `${user.address.address}, ${user.address.city}, ${user.address.state} ${user.address.zipcode}` : "N/A"}</td>
                       <td>
                         <button onClick={() => handleDeleteUser(user._id)} className="border-0 bg-transparent">

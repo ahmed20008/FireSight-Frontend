@@ -10,16 +10,19 @@ import Swal from 'sweetalert2';
 import Loader from "../../layout/partials/Loader";
 import AddMemberModal from "./components/AddMemberModal";
 import AddNewMemberModal from "./components/AddNewMember";
+import { allVerifiedUsers } from "../../api/AddMemberApi";
 
 const AllRequest = () => {
   const [allUsersRequests, setAllUsersRequests] = useState([]);
   const [selectedMember, setSelectedMember] = useState([]);
   const [showMemberModal, setShowMemberModal] = useState(false);
   const [showNewMemberModal, setShowNewMemberModal] = useState(false);
+  const [allVerifiedUser, setAllVerifiedUser] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchAllRequestedUsers();
+    fetchAllUsers();
   }, []);
 
   const fetchAllRequestedUsers = () => {
@@ -31,6 +34,16 @@ const AllRequest = () => {
         toastrOnTopCenter("Error Fetching Users. Retry again later!", "error");
       })
       .finally(() => setLoading(false));
+  };
+
+  const fetchAllUsers = () => {
+    allVerifiedUsers()
+      .then((response) => {
+        setAllVerifiedUser(response.users);
+      })
+      .catch((errors) => {
+        toastrOnTopCenter("Error Fetching Users. Retry again later!", "error");
+      })
   };
 
   const handleDeleteRequest = (userId) => {
@@ -125,8 +138,8 @@ const AllRequest = () => {
           </div>
         </>
       )}
-      {showMemberModal && <AddMemberModal selectedMember={selectedMember} closeModal={() => setShowMemberModal(false)} />}
-      {showNewMemberModal && <AddNewMemberModal closeModal={() => setShowNewMemberModal(false)} />}
+      {showMemberModal && <AddMemberModal allVerifiedUser={allVerifiedUser} selectedMember={selectedMember} closeModal={() => setShowMemberModal(false)} />}
+      {showNewMemberModal && <AddNewMemberModal allVerifiedUser={allVerifiedUser} closeModal={() => setShowNewMemberModal(false)} />}
     </>
   );
 };
