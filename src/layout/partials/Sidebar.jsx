@@ -69,7 +69,7 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
                 <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Dashboard</span>
               </Link>
             </li>
-            {sidebarPinned && <p className="py-2 mb-0 text-white">CAMERA INFO</p>}
+            {sidebarPinned && (currentUser?.permissions === ADMIN && currentUser?.permissions === USER) && <p className="py-2 mb-0 text-white">CAMERA INFO</p>}
             {currentUser?.permissions === ADMIN && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "cameras" ? styles.sidebarActive : ""}`}>
                 <Link to="/cameras">
@@ -100,7 +100,7 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
                 </Link>
               </li>
             )}
-            {sidebarPinned && <p className="py-2 mb-0 text-white">PROFILE</p>}
+            {sidebarPinned && (currentUser?.permissions === ADMIN && currentUser?.permissions === USER) && <p className="py-2 mb-0 text-white">PROFILE</p>}
             {currentUser?.permissions === USER && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "profile" ? styles.sidebarActive : ""}`}>
                 <Link to="/profile">
