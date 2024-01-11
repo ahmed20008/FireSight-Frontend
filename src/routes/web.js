@@ -19,6 +19,7 @@ const UpgradeToPro = lazy(() => import("../modules/upgrade/UpgradeToPro"));
 const Error404 = lazy(() => import("../modules/shared/components/Error404"));
 const Thankyou = lazy(() => import("../modules/auth/Thankyou"));
 const Notification = lazy(() => import("../modules/notification/Notification"));
+const Support = lazy(() => import("../modules/support/Support"));
 
 const ProtectedRoute = ({component}) => {
   const [cookies] = useCookies(["auth_token"]);
@@ -86,6 +87,10 @@ export const routes = [
   {
     path: "/upgrade-to-pro",
     element: <ProtectedRoute component={<UpgradeToPro />} />,
+  },
+  {
+    path: "/support",
+    element: <ProtectedRoute component={<Support />} />,
   },
   {
     path: "*",

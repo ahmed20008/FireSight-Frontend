@@ -1,16 +1,16 @@
-import React, {useState} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import {IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconDeviceCctv, IconCirclePlus, IconLogout, IconUserPlus} from "@tabler/icons-react";
-import {authImages} from "../../utils/staticImages";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { IconUsers, IconUserCircle, IconLayoutDashboard, IconShoppingBag, IconDeviceCctv, IconCirclePlus, IconLogout, IconUserPlus, IconHelpCircle } from "@tabler/icons-react";
+import { authImages } from "../../utils/staticImages";
 import styles from "../../assets/css/sidebar.module.css?v1.0";
-import {logout} from "../../api/AuthApi";
-import {toastrOnTopCenter} from "../../utils/toastr";
-import {useCookies} from "react-cookie";
-import {ADMIN, USER} from "../../utils/rolesConstants";
-import {useSelector} from "react-redux";
-import {getCurrentUser} from "../../redux/selectors";
+import { logout } from "../../api/AuthApi";
+import { toastrOnTopCenter } from "../../utils/toastr";
+import { useCookies } from "react-cookie";
+import { ADMIN, USER } from "../../utils/rolesConstants";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../redux/selectors";
 
-const Sidebar = ({sidebarPinned, updateSidebarState}) => {
+const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
   const currentUser = useSelector((state) => getCurrentUser(state));
 
   const location = useLocation();
@@ -35,7 +35,7 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
   const handleLogout = () => {
     logout()
       .then((response) => {
-        removeCookie("auth_token", {path: "/"});
+        removeCookie("auth_token", { path: "/" });
         navigate("/");
       })
       .catch((errors) => {
@@ -145,6 +145,16 @@ const Sidebar = ({sidebarPinned, updateSidebarState}) => {
               </>
             )}
             {sidebarPinned && <p className="py-2 mb-0 text-white">OTHERS</p>}
+            {(currentUser?.permissions === USER || currentUser?.permissions === ADMIN) && (
+              <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "support" ? styles.sidebarActive : ""}`}>
+                <Link to="/support">
+                  <div>
+                    <IconHelpCircle />
+                  </div>
+                  <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Support</span>
+                </Link>
+              </li>
+            )}
             <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "logout" ? styles.sidebarActive : ""}`}>
               <Link to="#" onClick={handleLogout}>
                 <div>
