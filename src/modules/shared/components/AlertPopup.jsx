@@ -3,11 +3,14 @@ import styles from "../../../assets/css/add-member-modal.module.css";
 import animations from "../../../assets/css/animations.module.css";
 import { useEffect, useState, useRef, useCallback } from "react";
 import buttonStyles from "../../../assets/css/buttons.module.css";
+import { updateEvent } from '../../../api/NotificaionApi';
+import { toastrOnTopCenter } from '../../../utils/toastr';
 
 
-const AlertPopup = ({ closeModal, fireAlertData, setCancelAlertModal, setSelectedEventId }) => {
+const AlertPopup = ({ closeModal, fireAlertData }) => {
   const [hideModal, setHideModal] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState();
   const modalContainerRef = useRef(null);
   const modalElementRef = useRef(null);
 
@@ -53,8 +56,6 @@ const AlertPopup = ({ closeModal, fireAlertData, setCancelAlertModal, setSelecte
     };
   }, [handleClickOutsideModal]);
 
-  console.log(fireAlertData)
-
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -69,6 +70,24 @@ const AlertPopup = ({ closeModal, fireAlertData, setCancelAlertModal, setSelecte
       formattedTime += ' AM';
     }
     return formattedTime;
+  };
+
+  const updateEventsCross = (_id) => {
+    setProcessing(true);
+    const payload = {
+      event_check: {
+        event_type: "old",
+        status: "false"
+      }
+    };
+    updateEvent(_id, payload)
+      .then((response) => {
+        toastrOnTopCenter(response.message, "success")
+      })
+      .catch((errors) => {
+        toastrOnTopCenter("Error updating Event. Retry again later!", "error");
+      })
+      .finally(() => setProcessing(false))
   };
 
   return (
@@ -95,10 +114,7 @@ const AlertPopup = ({ closeModal, fireAlertData, setCancelAlertModal, setSelecte
                   <button
                     disabled={processing ? true : false}
                     type="button"
-                    onClick={() => {
-                      handleModalClose();
-                      setSelectedEventId(data._id);
-                    }}
+                    onClick={() => updateEventsCross(data._id)}
                     className={buttonStyles.buttonWhiteRounded}
                   >
                     <i className="fa fa-times" aria-hidden="true"></i>
