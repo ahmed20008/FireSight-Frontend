@@ -10,6 +10,7 @@ import { ADMIN, USER } from "../../utils/rolesConstants";
 import { allUsers } from "../../api/AllUsersApi";
 import { toastrOnTopCenter } from "../../utils/toastr";
 import { allCameras, myCameras } from "../../api/CameraApi";
+import { allEvents, getEvent } from "../../api/NotificaionApi";
 
 const Dashboard = () => {
   const currentUser = useSelector((state) => getCurrentUser(state));
@@ -20,6 +21,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [totalUsers, setTotalUsers] = useState();
   const [cameraInfo, setCameraInfo] = useState([]);
+  const [totalEvents, setTotalEvents] = useState();
+  const [myTotalEvents, setMyTotalEvents] = useState();
   const [myId, setMyId] = useState(null);
   const [myCameraInfo, setMyCameraInfo] = useState([]);
 
@@ -32,6 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (myId) {
       fetchMyCameras(myId);
+      fetchMyEvents(myId)
     }
   }, [myId]);
 
@@ -49,6 +53,7 @@ const Dashboard = () => {
     );
     fetchAllUsers();
     fetchAllCameras();
+    fetchAllEvents();
   }, []);
 
   const defaultCenter = [latitude || 0, longitude || 0];
@@ -87,6 +92,28 @@ const Dashboard = () => {
       .finally(() => setLoading(false));
   };
 
+  const fetchAllEvents = () => {
+    allEvents()
+      .then((response) => {
+        setTotalEvents(response.events.length);
+      })
+      .catch((errors) => {
+        toastrOnTopCenter("Error Fetching Events. Retry again later!", "error");
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const fetchMyEvents = (_id) => {
+    getEvent(_id)
+      .then((response) => {
+        setMyTotalEvents(response.events.length);
+      })
+      .catch((errors) => {
+        toastrOnTopCenter("Error Fetching Events. Retry again later!", "error");
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <>
       <HeadingHeader text={`Hello, ${capitalizedName}`} />
@@ -116,12 +143,22 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-          <div className="col-md-4 mb-2">
-            <div className={`card ${styles.statsCard}`}>
-              <h2>20</h2>
-              <p># of Events</p>
+          {currentUser?.permissions === ADMIN && (
+            <div className="col-md-4 mb-2">
+              <div className={`card ${styles.statsCard}`}>
+                <h2>{totalEvents}</h2>
+                <p># of Events</p>
+              </div>
             </div>
-          </div>
+          )}
+          {currentUser?.permissions === USER && (
+            <div className="col-md-4 mb-2">
+              <div className={`card ${styles.statsCard}`}>
+                <h2>{myTotalEvents}</h2>
+                <p># of Events</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

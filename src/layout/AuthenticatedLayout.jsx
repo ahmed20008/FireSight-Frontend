@@ -43,7 +43,7 @@ function authenticatedLayout(WrappedComponent) {
         if (currentUser && currentUser._id) {
           fetchEvent(currentUser._id);
         }
-      }, 10000);
+      }, 90000);
 
       return () => clearInterval(intervalId);
     }, [currentUser]);
