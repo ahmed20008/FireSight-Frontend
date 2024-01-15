@@ -83,6 +83,26 @@ const AlertPopup = ({ closeModal, fireAlertData }) => {
     updateEvent(_id, payload)
       .then((response) => {
         toastrOnTopCenter(response.message, "success")
+        handleModalClose();
+      })
+      .catch((errors) => {
+        toastrOnTopCenter("Error updating Event. Retry again later!", "error");
+      })
+      .finally(() => setProcessing(false))
+  };
+
+  const updateEventsTick = (_id) => {
+    setProcessing(true);
+    const payload = {
+      event_check: {
+        event_type: "old",
+        status: "true"
+      }
+    };
+    updateEvent(_id, payload)
+      .then((response) => {
+        toastrOnTopCenter(response.message, "success")
+        handleModalClose();
       })
       .catch((errors) => {
         toastrOnTopCenter("Error updating Event. Retry again later!", "error");
@@ -117,9 +137,15 @@ const AlertPopup = ({ closeModal, fireAlertData }) => {
                     onClick={() => updateEventsCross(data._id)}
                     className={buttonStyles.buttonWhiteRounded}
                   >
-                    <i className="fa fa-times" aria-hidden="true"></i>
+                    {processing && <i className="fa fa-spinner fa-spin"></i>}
+                    {!processing && <i className="fa fa-times" aria-hidden="true"></i>}
                   </button>
-                  <button disabled={processing ? true : false} type="submit" className={buttonStyles.buttonBlackRounded}>
+
+                  <button
+                    disabled={processing ? true : false}
+                    type="submit" className={buttonStyles.buttonBlackRounded}
+                    onClick={() => updateEventsTick(data._id)}
+                  >
                     {processing && <i className="fa fa-spinner fa-spin"></i>}
                     {!processing && <i className="fa fa-check" aria-hidden="true"></i>}
                   </button>

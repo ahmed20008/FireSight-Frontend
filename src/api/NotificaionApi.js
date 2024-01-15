@@ -3,7 +3,7 @@ import axios from "axios";
 const UPDATE_EVENT_PAYLOAD = {
   event_check: {
     event_type: "old",
-    status: "false"
+    status: ""
   }
 }
 
