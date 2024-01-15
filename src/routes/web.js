@@ -1,6 +1,6 @@
-import {lazy} from "react";
-import {Navigate} from "react-router-dom";
-import {useCookies} from "react-cookie";
+import { lazy } from "react";
+import { Navigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Login = lazy(() => import("../modules/auth/Login"));
 const Register = lazy(() => import("../modules/auth/Register"));
@@ -20,8 +20,9 @@ const Error404 = lazy(() => import("../modules/shared/components/Error404"));
 const Thankyou = lazy(() => import("../modules/auth/Thankyou"));
 const Notification = lazy(() => import("../modules/notification/Notification"));
 const Support = lazy(() => import("../modules/support/Support"));
+const CameraStream = lazy(() => import("../modules/stream/CameraStream"));
 
-const ProtectedRoute = ({component}) => {
+const ProtectedRoute = ({ component }) => {
   const [cookies] = useCookies(["auth_token"]);
 
   if (!cookies.auth_token) {
@@ -91,6 +92,10 @@ export const routes = [
   {
     path: "/support",
     element: <ProtectedRoute component={<Support />} />,
+  },
+  {
+    path: "/stream",
+    element: <ProtectedRoute component={<CameraStream />} />,
   },
   {
     path: "*",

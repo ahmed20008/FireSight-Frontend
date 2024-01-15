@@ -5,8 +5,9 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import buttonStyles from "../../../assets/css/buttons.module.css";
 
 
-const AlertPopup = ({ closeModal }) => {
+const AlertPopup = ({ closeModal, fireAlertData, setCancelAlertModal, setSelectedEventId }) => {
   const [hideModal, setHideModal] = useState(true);
+  const [processing, setProcessing] = useState(false);
   const modalContainerRef = useRef(null);
   const modalElementRef = useRef(null);
 
@@ -52,23 +53,65 @@ const AlertPopup = ({ closeModal }) => {
     };
   }, [handleClickOutsideModal]);
 
+  console.log(fireAlertData)
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  const formatTime = (time) => {
+    const timeArray = time.split(':');
+    let formattedTime = `${timeArray[0]}:${timeArray[1]}`;
+    const hours = parseInt(timeArray[0]);
+    if (hours >= 12) {
+      formattedTime += ' PM';
+    } else {
+      formattedTime += ' AM';
+    }
+    return formattedTime;
+  };
 
   return (
     <>
       <div ref={modalContainerRef} className={`modal ${!hideModal ? animations.fadeOut : animations.fadeIn}`} id="inviteTeamModal" tabIndex="-1" aria-labelledby="inviteTeamModalLabel" style={{ display: "block" }} aria-hidden="true">
-        <div className={`modal-dialog modal-dialog-scrollable ${!hideModal ? animations.slideOut : animations.slideIn} ${styles.teamModal}`}>
-          <form ref={modalElementRef} className="modal-content">
-            <div className={`modal-header border-0 pb-0 ${styles.teamModalHeader}`}>
-              <h1 className="modal-title" id="inviteTeamModalLabel">
-                Fire Detected
-              </h1>
-              <hr className="hr" />
+        {fireAlertData.map((data, index) => (
+          <>
+            <div className={`modal-dialog modal-dialog-scrollable ${!hideModal ? animations.slideOut : animations.slideIn} ${styles.teamModal}`}>
+              <form ref={modalElementRef} className="modal-content">
+                <div key={index} className={`modal-header border-0 pb-0 ${styles.teamModalHeader}`}>
+                  <h1 className="modal-title" id="inviteTeamModalLabel">
+                    {capitalizeFirstLetter(data.event_data.class)} Detection Alert
+                  </h1>
+                  <hr className="hr" />
+                </div>
+                <div className={`modal-body pt-0 ${styles.modalBodyScroll}`}>
+                  {capitalizeFirstLetter(data.event_data.class)} has been detected on {data.event_data.date} and {formatTime(data.event_data.time)}. <br />
+                  Please take necessary action to avoid any potential threats. <br /> <a href="tel: +923061714544"> Call Emergency Department</a>
+                  <div className="text-center pt-3">
+                    <img src={data.event_pic} width="50%" height="50%" alt="" />
+                  </div>
+                </div>
+                <div className={` ${styles.modalFooterContainer}`}>
+                  <button
+                    disabled={processing ? true : false}
+                    type="button"
+                    onClick={() => {
+                      handleModalClose();
+                      setSelectedEventId(data._id);
+                    }}
+                    className={buttonStyles.buttonWhiteRounded}
+                  >
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                  <button disabled={processing ? true : false} type="submit" className={buttonStyles.buttonBlackRounded}>
+                    {processing && <i className="fa fa-spinner fa-spin"></i>}
+                    {!processing && <i className="fa fa-check" aria-hidden="true"></i>}
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className={`modal-body pt-0 ${styles.modalBodyScroll}`}>
-              Fire has been detected
-            </div>
-          </form>
-        </div>
+          </>
+        ))}
       </div>
       <div className={`modal-backdrop fade show ${!hideModal ? animations.backdropFadeOut : ""}`}></div>
     </>

@@ -10,3 +10,14 @@ export async function allEvents() {
       throw error.response.data;
     });
 }
+
+export async function getEvent(_id) {
+  return await axios
+    .get(`/event/${_id}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error.response.data;
+    });
+}

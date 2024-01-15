@@ -100,6 +100,16 @@ const Sidebar = ({ sidebarPinned, updateSidebarState }) => {
                 </Link>
               </li>
             )}
+            {currentUser?.permissions === USER && (
+              <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "stream" ? styles.sidebarActive : ""}`}>
+                <Link to="/stream">
+                  <div>
+                    <IconDeviceCctv />
+                  </div>
+                  <span className={sidebarPinned || sidebarShow ? styles.showSidebarSpan : styles.hideSidebarSpan}>Streams</span>
+                </Link>
+              </li>
+            )}
             {sidebarPinned && (currentUser?.permissions === ADMIN || currentUser?.permissions === USER) && <p className="py-2 mb-0 text-white">PROFILE</p>}
             {currentUser?.permissions === USER && (
               <li className={`mb-1 ${styles.listItem} ${pathArray[0] === "profile" ? styles.sidebarActive : ""}`}>
