@@ -13,11 +13,13 @@ import { useSelector } from "react-redux";
 import { getEvent } from "../api/NotificaionApi";
 import { toastrOnTopCenter } from "../utils/toastr";
 import AlertPopup from "../modules/shared/components/AlertPopup";
+import useSound from 'use-sound';
 import alarm from "../assets/alarm/alarm.mp3";
 
 function authenticatedLayout(WrappedComponent) {
   return function AuthenticatedLayout(props) {
     const currentUser = useSelector((state) => getCurrentUser(state));
+    const [playAlarm, { stop }] = useSound(alarm);
     const dispatch = useDispatch();
 
     const [fireAlertData, setFireAlertData] = useState(true);
@@ -62,18 +64,13 @@ function authenticatedLayout(WrappedComponent) {
           setFireAlertData(newEvents);
           if (newEvents.length > 0) {
             setShowAlertModal(true);
-            // playAlarmSound();
+            playAlarm();
           }
         })
         .catch((errors) => {
           toastrOnTopCenter("Error Fetching Event. Retry again later!", "error");
         })
     };
-
-    // const playAlarmSound = () => {
-    //   const alarmAudio = new Audio(alarm);
-    //   alarmAudio.play();
-    // };
 
     return (
       <>
